@@ -1,4 +1,5 @@
-language: ruby
-rvm:
- - 2.2
- - jruby
+language: swift
+osx_image: xcode12.2
+xcode_project: ShopUI.xcodeproj # path to your xcodeproj folder
+xcode_scheme: ShopUITests
+xcode_destination: platform=iOS Simulator,OS=14.0,name=iPhone 11
