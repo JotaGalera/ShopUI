@@ -4,5 +4,6 @@
 ### Description: 
 
 Shop app prototype:
-	- using SwiftUI and TDD as software development approach. 
-	- including Travis as CI tool. 
+
+	* using SwiftUI and TDD as software development approach. 
+	* including Travis as CI tool. 
