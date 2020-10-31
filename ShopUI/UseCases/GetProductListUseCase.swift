@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol GetProductListUseCase {
+protocol GetProductListUseCase: AutoMockable {
     func execute() -> [String:String]
 }
 

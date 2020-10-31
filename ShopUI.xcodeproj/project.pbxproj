@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		193F1240CF7820B66CB3C40E /* libPods-ShopUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D7E730DBAAC86368FFA0EC5 /* libPods-ShopUITests.a */; };
 		244E25236230309F54C2BAA3 /* libPods-ShopUI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8548702894760CDE6A3A9C5F /* libPods-ShopUI.a */; };
+		89122767254DF72C0004E105 /* AutoMockable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89122766254DF72C0004E105 /* AutoMockable.swift */; };
 		896C37FD254DD89D00A1A648 /* getProductListUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896C37FC254DD89D00A1A648 /* getProductListUseCaseTest.swift */; };
 		896C3808254DDC6300A1A648 /* GetProductListUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896C3807254DDC6300A1A648 /* GetProductListUseCase.swift */; };
 		896FB77D254A1CC500A55F12 /* ShopUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896FB77C254A1CC500A55F12 /* ShopUIApp.swift */; };
@@ -17,6 +18,7 @@
 		896FB784254A1CC700A55F12 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 896FB783254A1CC700A55F12 /* Preview Assets.xcassets */; };
 		896FB78F254A1CC700A55F12 /* ShopUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896FB78E254A1CC700A55F12 /* ShopUITests.swift */; };
 		896FB79A254A1CC700A55F12 /* ShopUIUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896FB799254A1CC700A55F12 /* ShopUIUITests.swift */; };
+		89D03F81254E03E400649BEB /* AutoMockable.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D03F80254E03E400649BEB /* AutoMockable.generated.swift */; };
 		E494A5D6E7C4DF8B40BF5259 /* libPods-ShopUIUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7230FFFC51980A18AA632CF6 /* libPods-ShopUIUITests.a */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +45,7 @@
 		7230FFFC51980A18AA632CF6 /* libPods-ShopUIUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ShopUIUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7644B2FD9275296B836619CD /* Pods-ShopUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShopUITests.release.xcconfig"; path = "Target Support Files/Pods-ShopUITests/Pods-ShopUITests.release.xcconfig"; sourceTree = "<group>"; };
 		8548702894760CDE6A3A9C5F /* libPods-ShopUI.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ShopUI.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		89122766254DF72C0004E105 /* AutoMockable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoMockable.swift; sourceTree = "<group>"; };
 		896C37FC254DD89D00A1A648 /* getProductListUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getProductListUseCaseTest.swift; sourceTree = "<group>"; };
 		896C3807254DDC6300A1A648 /* GetProductListUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetProductListUseCase.swift; sourceTree = "<group>"; };
 		896FB779254A1CC500A55F12 /* ShopUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShopUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -57,6 +60,7 @@
 		896FB795254A1CC700A55F12 /* ShopUIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShopUIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		896FB799254A1CC700A55F12 /* ShopUIUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopUIUITests.swift; sourceTree = "<group>"; };
 		896FB79B254A1CC700A55F12 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		89D03F80254E03E400649BEB /* AutoMockable.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoMockable.generated.swift; sourceTree = "<group>"; };
 		9D7E730DBAAC86368FFA0EC5 /* libPods-ShopUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ShopUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B50051C20DDADE8557748B14 /* Pods-ShopUIUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShopUIUITests.debug.xcconfig"; path = "Target Support Files/Pods-ShopUIUITests/Pods-ShopUIUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		D181041F5EBB3CAF4AD52E83 /* Pods-ShopUI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShopUI.debug.xcconfig"; path = "Target Support Files/Pods-ShopUI/Pods-ShopUI.debug.xcconfig"; sourceTree = "<group>"; };
@@ -91,6 +95,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		89122765254DF71C0004E105 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				89122766254DF72C0004E105 /* AutoMockable.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		896C37FA254DD87300A1A648 /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
@@ -132,6 +144,7 @@
 		896FB77B254A1CC500A55F12 /* ShopUI */ = {
 			isa = PBXGroup;
 			children = (
+				89122765254DF71C0004E105 /* Utils */,
 				896C37FA254DD87300A1A648 /* UseCases */,
 				896FB77C254A1CC500A55F12 /* ShopUIApp.swift */,
 				896FB77E254A1CC500A55F12 /* ContentView.swift */,
@@ -153,6 +166,7 @@
 		896FB78D254A1CC700A55F12 /* ShopUITests */ = {
 			isa = PBXGroup;
 			children = (
+				89D03F7F254E03E400649BEB /* Autogenerated */,
 				896C37FB254DD88200A1A648 /* UseCases */,
 				896FB78E254A1CC700A55F12 /* ShopUITests.swift */,
 				896FB790254A1CC700A55F12 /* Info.plist */,
@@ -167,6 +181,14 @@
 				896FB79B254A1CC700A55F12 /* Info.plist */,
 			);
 			path = ShopUIUITests;
+			sourceTree = "<group>";
+		};
+		89D03F7F254E03E400649BEB /* Autogenerated */ = {
+			isa = PBXGroup;
+			children = (
+				89D03F80254E03E400649BEB /* AutoMockable.generated.swift */,
+			);
+			path = Autogenerated;
 			sourceTree = "<group>";
 		};
 		902F2894ACBC6B0C9ABD5394 /* Frameworks */ = {
@@ -189,7 +211,6 @@
 				B50051C20DDADE8557748B14 /* Pods-ShopUIUITests.debug.xcconfig */,
 				1A8F37F4F6040BB0B7F1AA9A /* Pods-ShopUIUITests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -222,6 +243,7 @@
 				896FB786254A1CC700A55F12 /* Sources */,
 				896FB787254A1CC700A55F12 /* Frameworks */,
 				896FB788254A1CC700A55F12 /* Resources */,
+				89122773254DFFE00004E105 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -365,6 +387,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		89122773254DFFE00004E105 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Pods/Sourcery/bin/sourcery --sources ./ShopUI --templates ./Other/Sourcery/Templates --output ShopUITests/Autogenerated\n";
+		};
 		9744668CB72F0F5BF6C281A2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -394,6 +433,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89122767254DF72C0004E105 /* AutoMockable.swift in Sources */,
 				896C3808254DDC6300A1A648 /* GetProductListUseCase.swift in Sources */,
 				896FB77F254A1CC500A55F12 /* ContentView.swift in Sources */,
 				896FB77D254A1CC500A55F12 /* ShopUIApp.swift in Sources */,
@@ -406,6 +446,7 @@
 			files = (
 				896C37FD254DD89D00A1A648 /* getProductListUseCaseTest.swift in Sources */,
 				896FB78F254A1CC700A55F12 /* ShopUITests.swift in Sources */,
+				89D03F81254E03E400649BEB /* AutoMockable.generated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
