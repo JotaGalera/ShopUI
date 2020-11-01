@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+protocol ProductList: AutoMockable {}
+
+class ProductListImplementation: ProductList {
+    var arrayProduct: [Product]?
+}

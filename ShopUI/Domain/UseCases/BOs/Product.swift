@@ -7,8 +7,6 @@
 
 import Foundation
 
-import Foundation
-
 struct Product {
     let name : String
     let brand : String
