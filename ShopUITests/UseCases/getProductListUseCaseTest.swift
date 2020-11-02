@@ -10,17 +10,19 @@ import Foundation
 import XCTest
 
 class getProductListUseCaseTest: XCTestCase {
-    private let sut: GetProductListUseCase = GetProductListUseCaseImplementation()
+    private var sut: GetProductListUseCase?
+    private var productListConverterMock = ProductListConverterMock()
     
     override func setUp() {
         super.setUp()
+        sut = GetProductListUseCaseImplementation(converter: productListConverterMock)
     }
-    
-    func testThanExecuteIsCalled() {
-        let productListMocked = ["ProductName": "Adidas originals trainers","size":"42"]
         
-        let productListObtained = sut.execute()
+    func testThanProductListConverterIsCalled_When_ExecuteIsCalled(){
+        productListConverterMock.convertProductListDataReturnValue = ProductListMock()
         
-        XCTAssertEqual(productListMocked, productListObtained)
+        _ = sut?.execute()
+        
+        XCTAssertEqual(1, productListConverterMock.convertProductListDataCallsCount)
     }
 }

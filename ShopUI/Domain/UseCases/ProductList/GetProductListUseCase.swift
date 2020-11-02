@@ -8,13 +8,20 @@
 import Foundation
 
 protocol GetProductListUseCase: AutoMockable {
-    func execute() -> [String:String]
+    func execute() -> ProductList
 }
 
 class GetProductListUseCaseImplementation: GetProductListUseCase {
-    private var productListMocked = ["ProductName": "Adidas originals trainers","size":"42"]
+    private var productListMocked = [["ProductName": "Adidas originals trainers","size":"42"]]
+    private let converter: ProductListConverter
     
-    func execute() -> [String:String] {
-        return productListMocked
+    init(converter: ProductListConverter = ProductListConverterImplementation()) {
+        self.converter = converter
+    }
+    
+    func execute() -> ProductList {
+        let productListReturned = converter.convert(productListData: productListMocked)
+        
+        return productListReturned
     }
 }

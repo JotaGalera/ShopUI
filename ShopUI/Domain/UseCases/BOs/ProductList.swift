@@ -10,5 +10,19 @@ import Foundation
 protocol ProductList: AutoMockable {}
 
 class ProductListImplementation: ProductList {
-    var arrayProduct: [Product]?
+    var arrayProduct: [Product] = []
+}
+
+extension ProductListImplementation: Equatable {
+    static func == (lhs: ProductListImplementation, rhs: ProductListImplementation) -> Bool {
+        guard lhs.arrayProduct == rhs.arrayProduct else { return false }
+       
+        for index in 0..<lhs.arrayProduct.count {
+            if lhs.arrayProduct[index] != rhs.arrayProduct[index]{
+                return false
+            }
+        }
+        
+        return true
+    }
 }

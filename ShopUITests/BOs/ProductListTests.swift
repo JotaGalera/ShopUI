@@ -16,4 +16,15 @@ class ProductListTests: XCTestCase {
         super.setUp()
         sut = ProductListImplementation()
     }
+    
+    func testThanProductListAIsEqualToProductListB_When_TheyHaveTheSameContent() {
+        let mockProduct = Product(name: "product", brand: "brandProduct", price: 5, currency: "€", image: "image")
+        let productListA = ProductListImplementation()
+        let productListB = ProductListImplementation()
+        
+        productListA.arrayProduct.append(mockProduct)
+        productListB.arrayProduct.append(mockProduct)
+        
+        XCTAssertEqual(productListA, productListB)
+    }
 }
