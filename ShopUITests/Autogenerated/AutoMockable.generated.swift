@@ -66,3 +66,20 @@ class ProductListConverterMock: ProductListConverter {
     }
 
 }
+class ProductListViewModelMock: ProductListViewModel {
+
+    //MARK: - getProductList
+
+    var getProductListCallsCount = 0
+    var getProductListCalled: Bool {
+        return getProductListCallsCount > 0
+    }
+    var getProductListReturnValue: ProductList!
+    var getProductListClosure: (() -> ProductList)?
+
+    func getProductList() -> ProductList {
+        getProductListCallsCount += 1
+        return getProductListClosure.map({ $0() }) ?? getProductListReturnValue
+    }
+
+}
