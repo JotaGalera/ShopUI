@@ -44,6 +44,37 @@ class GetProductListUseCaseMock: GetProductListUseCase {
 }
 class ProductListMock: ProductList {
 
+    //MARK: - getProducts
+
+    var getProductsCallsCount = 0
+    var getProductsCalled: Bool {
+        return getProductsCallsCount > 0
+    }
+    var getProductsReturnValue: [Product]!
+    var getProductsClosure: (() -> [Product])?
+
+    func getProducts() -> [Product] {
+        getProductsCallsCount += 1
+        return getProductsClosure.map({ $0() }) ?? getProductsReturnValue
+    }
+
+    //MARK: - setProducts
+
+    var setProductsProductCallsCount = 0
+    var setProductsProductCalled: Bool {
+        return setProductsProductCallsCount > 0
+    }
+    var setProductsProductReceivedProduct: Product?
+    var setProductsProductReceivedInvocations: [Product] = []
+    var setProductsProductClosure: ((Product) -> Void)?
+
+    func setProducts(product: Product) {
+        setProductsProductCallsCount += 1
+        setProductsProductReceivedProduct = product
+        setProductsProductReceivedInvocations.append(product)
+        setProductsProductClosure?(product)
+    }
+
 }
 class ProductListConverterMock: ProductListConverter {
 
@@ -68,18 +99,18 @@ class ProductListConverterMock: ProductListConverter {
 }
 class ProductListViewModelMock: ProductListViewModel {
 
-    //MARK: - getProductList
+    //MARK: - getProducts
 
-    var getProductListCallsCount = 0
-    var getProductListCalled: Bool {
-        return getProductListCallsCount > 0
+    var getProductsCallsCount = 0
+    var getProductsCalled: Bool {
+        return getProductsCallsCount > 0
     }
-    var getProductListReturnValue: ProductList!
-    var getProductListClosure: (() -> ProductList)?
+    var getProductsReturnValue: [Product]!
+    var getProductsClosure: (() -> [Product])?
 
-    func getProductList() -> ProductList {
-        getProductListCallsCount += 1
-        return getProductListClosure.map({ $0() }) ?? getProductListReturnValue
+    func getProducts() -> [Product] {
+        getProductsCallsCount += 1
+        return getProductsClosure.map({ $0() }) ?? getProductsReturnValue
     }
 
 }

@@ -19,9 +19,11 @@ class ProductListViewModelTests: XCTestCase {
     }
     
     func testThanExecutedIsCalled_When_GetProductListIsCalled() {
-        getProductListUseCaseMock.executeReturnValue = ProductListMock()
+        let productListMock = ProductListMock()
+        productListMock.getProductsReturnValue = [Product(name: "product", brand: "brand", price: 0, currency: "€", image: "image")]
+        getProductListUseCaseMock.executeReturnValue = productListMock
         
-        _ = sut?.getProductList()
+        _ = sut?.getProducts()
         
         XCTAssertEqual(1, getProductListUseCaseMock.executeCallsCount)
     }

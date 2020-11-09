@@ -7,18 +7,29 @@
 
 import Foundation
 
-protocol ProductList: AutoMockable {}
+protocol ProductList: AutoMockable {
+    func getProducts() -> [Product]
+    func setProducts(product: Product)
+}
 
 class ProductListImplementation: ProductList {
-    var arrayProduct: [Product] = []
+    private var products: [Product] = []
+    
+    func setProducts(product: Product) {
+        self.products.append(product)
+    }
+    
+    func getProducts() -> [Product] {
+        return products
+    }
 }
 
 extension ProductListImplementation: Equatable {
     static func == (lhs: ProductListImplementation, rhs: ProductListImplementation) -> Bool {
-        guard lhs.arrayProduct == rhs.arrayProduct else { return false }
+        guard lhs.products == rhs.products else { return false }
        
-        for index in 0..<lhs.arrayProduct.count {
-            if lhs.arrayProduct[index] != rhs.arrayProduct[index]{
+        for index in 0..<lhs.products.count {
+            if lhs.products[index] != rhs.products[index]{
                 return false
             }
         }

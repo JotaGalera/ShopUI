@@ -8,17 +8,22 @@
 import Foundation
 
 protocol ProductListViewModel: AutoMockable {
-    func getProductList()-> ProductList
+    func getProducts() -> [Product]
 }
 
-class ProductListViewModelImplementation: ProductListViewModel {
+class ProductListViewModelImplementation: ProductListViewModel, ObservableObject {
     private var getProductListUseCase: GetProductListUseCase
     
     init(getProductListUseCase: GetProductListUseCase = GetProductListUseCaseImplementation()){
         self.getProductListUseCase = getProductListUseCase
     }
     
-    func getProductList()-> ProductList {
+    func getProducts() -> [Product] {
+        let productList = getProductList()
+        return productList.getProducts()
+    }
+    
+    private func getProductList() -> ProductList {
         return getProductListUseCase.execute()
     }
 }

@@ -22,7 +22,7 @@ class ProductListConverterImplementation: ProductListConverter {
                                   price: Int(productListData[index]["price"] ?? "0") ?? 0,
                                   currency: productListData[index]["currency"] ?? "",
                                   image: productListData[index]["image"] ?? "")
-            productList.arrayProduct.append(product)
+            productList.setProducts(product: product)
         }
         
         return productList

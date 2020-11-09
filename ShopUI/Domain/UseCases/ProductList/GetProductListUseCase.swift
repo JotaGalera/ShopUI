@@ -12,7 +12,11 @@ protocol GetProductListUseCase: AutoMockable {
 }
 
 class GetProductListUseCaseImplementation: GetProductListUseCase {
-    private var productListMocked = [["ProductName": "Adidas originals trainers","size":"42"]]
+    private var productListMocked = [
+        ["ProductName": "Trainers","brand":"Adidas Originals","price":"40","currency":"€","image":"image"],
+        ["ProductName": "T-Shirt","brand":"Adidas","price":"80","currency":"€","image":"image"],
+        ["ProductName": "Sweat","brand":"Reebok","price":"100","currency":"€","image":"image"]
+    ]
     private let converter: ProductListConverter
     
     init(converter: ProductListConverter = ProductListConverterImplementation()) {

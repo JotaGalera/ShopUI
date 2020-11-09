@@ -9,7 +9,7 @@
 import Foundation
 import XCTest
 
-class getProductListUseCaseTest: XCTestCase {
+class GetProductListUseCaseTest: XCTestCase {
     private var sut: GetProductListUseCase?
     private var productListConverterMock = ProductListConverterMock()
     

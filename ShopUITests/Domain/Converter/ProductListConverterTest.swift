@@ -21,7 +21,7 @@ class ProductListConverterTest: XCTestCase {
         let productMock = Product(name: "trainers",brand: "Adidas",price: 50,currency: "€",image: "image")
         let productListMock = ProductListImplementation()
         
-        productListMock.arrayProduct.append(productMock)
+        productListMock.setProducts(product: productMock)
         let productListReturned = sut.convert(productListData: productListDataMock)
         
         XCTAssertEqual(productListMock, productListReturned as! ProductListImplementation)
