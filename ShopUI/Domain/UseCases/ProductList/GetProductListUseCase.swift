@@ -12,18 +12,17 @@ protocol GetProductListUseCase: AutoMockable {
 }
 
 class GetProductListUseCaseImplementation: GetProductListUseCase {
-    private var productListMocked = [
-        ["ProductName": "Trainers","brand":"Adidas Originals","price":"40","currency":"€","image":"image"],
-        ["ProductName": "T-Shirt","brand":"Adidas","price":"80","currency":"€","image":"image"],
-        ["ProductName": "Sweat","brand":"Reebok","price":"100","currency":"€","image":"image"]
-    ]
-    private let converter: ProductListConverter
     
-    init(converter: ProductListConverter = ProductListConverterImplementation()) {
+    private let converter: ProductListConverter
+    private let repository: APIRepository
+    
+    init(repository: APIRepository = APIRepositoryImplementation(), converter: ProductListConverter = ProductListConverterImplementation()) {
+        self.repository = repository
         self.converter = converter
     }
     
     func execute() -> ProductList {
+        let productListMocked = repository.getProductList()
         let productListReturned = converter.convert(productListData: productListMocked)
         
         return productListReturned

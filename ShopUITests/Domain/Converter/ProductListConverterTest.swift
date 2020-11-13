@@ -16,7 +16,7 @@ class ProductListConverterTest: XCTestCase {
         super.setUp()
     }
     
-    func testThanProductListConverterIsRerturningProductListImplementation_When_ConvertIsCalled() {
+    func testThatProductListConverterIsRerturningProductListImplementation_When_ConvertIsCalled() {
         let productListDataMock = [["ProductName":"trainers","brand":"Adidas","price":"50","currency":"€","image":"image"]]
         let productMock = Product(name: "trainers",brand: "Adidas",price: 50,currency: "€",image: "image")
         let productListMock = ProductListImplementation()
