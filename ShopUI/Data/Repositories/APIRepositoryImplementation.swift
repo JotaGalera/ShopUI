@@ -8,13 +8,15 @@
 import Foundation
 
 class APIRepositoryImplementation: APIRepository {
-    private var productListMocked = [
-        ["ProductName": "Trainers","brand":"Adidas Originals","price":"40","currency":"€","image":"image"],
-        ["ProductName": "T-Shirt","brand":"Adidas","price":"80","currency":"€","image":"image"],
-        ["ProductName": "Sweat","brand":"Reebok","price":"100","currency":"€","image":"image"]
-    ]
+    private var dataSource: APIDataSource
+    
+    init(dataSource: APIDataSource = APIDataSourceImplementation()){
+        self.dataSource = dataSource
+    }
     
     func getProductList() -> [[String : String]] {
+        let productListMocked = dataSource.getProductList()
+        
         return productListMocked
     }
 }

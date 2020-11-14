@@ -29,4 +29,29 @@ class ProductListTests: XCTestCase {
         XCTAssertEqual(productListA.getProducts(), productListB.getProducts())
     }
     
+    func testThatProductListAIsNotEqualToProductListB_When_TheyHaveDifferentContent() {
+        let productMock = Product(name: "product", brand: "brandProduct", price: 5, currency: "€", image: "image")
+        let productMock2 = Product(name: "product2", brand: "brandProduct2", price: 6, currency: "€", image: "image")
+        let productListA = ProductListImplementation()
+        let productListB = ProductListImplementation()
+        
+        productListA.setProducts(product: productMock)
+        productListB.setProducts(product: productMock2)
+        
+        XCTAssertNotEqual(productListA, productListB)
+        XCTAssertNotEqual(productListA.getProducts(), productListB.getProducts())
+    }
+    
+    func testThatProductListAIsNotEqualToProductListB_When_TheyHaveDifferentNumberOfProducts() {
+        let productMock = Product(name: "product", brand: "brandProduct", price: 5, currency: "€", image: "image")
+        let productListA = ProductListImplementation()
+        let productListB = ProductListImplementation()
+        
+        productListA.setProducts(product: productMock)
+        productListB.setProducts(product: productMock)
+        productListB.setProducts(product: productMock)
+        
+        XCTAssertNotEqual(productListA, productListB)
+        XCTAssertNotEqual(productListA.getProducts(), productListB.getProducts())
+    }
 }

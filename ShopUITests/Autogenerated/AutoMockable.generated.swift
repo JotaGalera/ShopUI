@@ -25,6 +25,23 @@ import AppKit
 
 
 
+class APIDataSourceMock: APIDataSource {
+
+    //MARK: - getProductList
+
+    var getProductListCallsCount = 0
+    var getProductListCalled: Bool {
+        return getProductListCallsCount > 0
+    }
+    var getProductListReturnValue: [[String:String]]!
+    var getProductListClosure: (() -> [[String:String]])?
+
+    func getProductList() -> [[String:String]] {
+        getProductListCallsCount += 1
+        return getProductListClosure.map({ $0() }) ?? getProductListReturnValue
+    }
+
+}
 class APIRepositoryMock: APIRepository {
 
     //MARK: - getProductList

@@ -26,7 +26,7 @@ class ProductListImplementation: ProductList {
 
 extension ProductListImplementation: Equatable {
     static func == (lhs: ProductListImplementation, rhs: ProductListImplementation) -> Bool {
-        guard lhs.products == rhs.products else { return false }
+        guard lhs.products.count == rhs.products.count else { return false }
        
         for index in 0..<lhs.products.count {
             if lhs.products[index] != rhs.products[index]{
