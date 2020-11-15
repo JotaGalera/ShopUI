@@ -29,16 +29,40 @@ class APIDataSourceMock: APIDataSource {
 
     //MARK: - getProductList
 
-    var getProductListCallsCount = 0
-    var getProductListCalled: Bool {
-        return getProductListCallsCount > 0
+    var getProductListOnSuccessOnFailureCallsCount = 0
+    var getProductListOnSuccessOnFailureCalled: Bool {
+        return getProductListOnSuccessOnFailureCallsCount > 0
     }
-    var getProductListReturnValue: [[String:String]]!
-    var getProductListClosure: (() -> [[String:String]])?
+    var getProductListOnSuccessOnFailureReceivedArguments: (onSuccess: (Data)->(), onFailure: (String)->())?
+    var getProductListOnSuccessOnFailureReceivedInvocations: [(onSuccess: (Data)->(), onFailure: (String)->())] = []
+    var getProductListOnSuccessOnFailureClosure: ((@escaping (Data)->(), @escaping (String)->()) -> Void)?
 
-    func getProductList() -> [[String:String]] {
-        getProductListCallsCount += 1
-        return getProductListClosure.map({ $0() }) ?? getProductListReturnValue
+    func getProductList(onSuccess: @escaping (Data)->(), onFailure: @escaping (String)->()) {
+        getProductListOnSuccessOnFailureCallsCount += 1
+        getProductListOnSuccessOnFailureReceivedArguments = (onSuccess: onSuccess, onFailure: onFailure)
+        getProductListOnSuccessOnFailureReceivedInvocations.append((onSuccess: onSuccess, onFailure: onFailure))
+        getProductListOnSuccessOnFailureClosure?(onSuccess, onFailure)
+    }
+
+}
+class APIMapperMock: APIMapper {
+
+    //MARK: - convert
+
+    var convertDataCallsCount = 0
+    var convertDataCalled: Bool {
+        return convertDataCallsCount > 0
+    }
+    var convertDataReceivedData: Data?
+    var convertDataReceivedInvocations: [Data] = []
+    var convertDataReturnValue: [[String:Any]]?
+    var convertDataClosure: ((Data) -> [[String:Any]]?)?
+
+    func convert(data: Data) -> [[String:Any]]? {
+        convertDataCallsCount += 1
+        convertDataReceivedData = data
+        convertDataReceivedInvocations.append(data)
+        return convertDataClosure.map({ $0(data) }) ?? convertDataReturnValue
     }
 
 }
@@ -46,16 +70,19 @@ class APIRepositoryMock: APIRepository {
 
     //MARK: - getProductList
 
-    var getProductListCallsCount = 0
-    var getProductListCalled: Bool {
-        return getProductListCallsCount > 0
+    var getProductListOnSuccessOnFailureCallsCount = 0
+    var getProductListOnSuccessOnFailureCalled: Bool {
+        return getProductListOnSuccessOnFailureCallsCount > 0
     }
-    var getProductListReturnValue: [[String : String]]!
-    var getProductListClosure: (() -> [[String : String]])?
+    var getProductListOnSuccessOnFailureReceivedArguments: (onSuccess: ([[String : Any]])->(), onFailure: (String)->())?
+    var getProductListOnSuccessOnFailureReceivedInvocations: [(onSuccess: ([[String : Any]])->(), onFailure: (String)->())] = []
+    var getProductListOnSuccessOnFailureClosure: ((@escaping ([[String : Any]])->(), @escaping (String)->()) -> Void)?
 
-    func getProductList() -> [[String : String]] {
-        getProductListCallsCount += 1
-        return getProductListClosure.map({ $0() }) ?? getProductListReturnValue
+    func getProductList(onSuccess: @escaping ([[String : Any]])->(), onFailure: @escaping (String)->()) {
+        getProductListOnSuccessOnFailureCallsCount += 1
+        getProductListOnSuccessOnFailureReceivedArguments = (onSuccess: onSuccess, onFailure: onFailure)
+        getProductListOnSuccessOnFailureReceivedInvocations.append((onSuccess: onSuccess, onFailure: onFailure))
+        getProductListOnSuccessOnFailureClosure?(onSuccess, onFailure)
     }
 
 }
@@ -63,16 +90,19 @@ class GetProductListUseCaseMock: GetProductListUseCase {
 
     //MARK: - execute
 
-    var executeCallsCount = 0
-    var executeCalled: Bool {
-        return executeCallsCount > 0
+    var executeOnSuccessOnFailureCallsCount = 0
+    var executeOnSuccessOnFailureCalled: Bool {
+        return executeOnSuccessOnFailureCallsCount > 0
     }
-    var executeReturnValue: ProductList!
-    var executeClosure: (() -> ProductList)?
+    var executeOnSuccessOnFailureReceivedArguments: (onSuccess: (ProductList)->(), onFailure: (String)->())?
+    var executeOnSuccessOnFailureReceivedInvocations: [(onSuccess: (ProductList)->(), onFailure: (String)->())] = []
+    var executeOnSuccessOnFailureClosure: ((@escaping (ProductList)->(), @escaping (String)->()) -> Void)?
 
-    func execute() -> ProductList {
-        executeCallsCount += 1
-        return executeClosure.map({ $0() }) ?? executeReturnValue
+    func execute(onSuccess: @escaping (ProductList)->(), onFailure: @escaping (String)->()) {
+        executeOnSuccessOnFailureCallsCount += 1
+        executeOnSuccessOnFailureReceivedArguments = (onSuccess: onSuccess, onFailure: onFailure)
+        executeOnSuccessOnFailureReceivedInvocations.append((onSuccess: onSuccess, onFailure: onFailure))
+        executeOnSuccessOnFailureClosure?(onSuccess, onFailure)
     }
 
 }
@@ -118,12 +148,12 @@ class ProductListConverterMock: ProductListConverter {
     var convertProductListDataCalled: Bool {
         return convertProductListDataCallsCount > 0
     }
-    var convertProductListDataReceivedProductListData: [[String:String]]?
-    var convertProductListDataReceivedInvocations: [[[String:String]]] = []
-    var convertProductListDataReturnValue: ProductList!
-    var convertProductListDataClosure: (([[String:String]]) -> ProductList)?
+    var convertProductListDataReceivedProductListData: [[String:Any]]?
+    var convertProductListDataReceivedInvocations: [[[String:Any]]] = []
+    var convertProductListDataReturnValue: ProductList?
+    var convertProductListDataClosure: (([[String:Any]]) -> ProductList?)?
 
-    func convert(productListData: [[String:String]]) -> ProductList {
+    func convert(productListData: [[String:Any]]) -> ProductList? {
         convertProductListDataCallsCount += 1
         convertProductListDataReceivedProductListData = productListData
         convertProductListDataReceivedInvocations.append(productListData)

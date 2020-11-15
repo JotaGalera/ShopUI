@@ -1,5 +1,5 @@
 //
-//  getProductListUseCaseTest.swift
+//  getProductListUseCaseTests.swift
 //  ShopUITests
 //
 //  Created by Javier Galera Garrido on 31/10/2020.
@@ -9,7 +9,7 @@
 import Foundation
 import XCTest
 
-class GetProductListUseCaseTest: XCTestCase {
+class GetProductListUseCaseTests: XCTestCase {
     private var sut: GetProductListUseCase?
     private var productListConverterMock = ProductListConverterMock()
     private var repositoryMock = APIRepositoryMock()
@@ -22,18 +22,16 @@ class GetProductListUseCaseTest: XCTestCase {
     
     private func setUpMocks() {
         productListConverterMock.convertProductListDataReturnValue = ProductListMock()
-        repositoryMock.getProductListReturnValue = [["KeyMock":"ValueMock"]]
     }
     
-    func testThatProductListConverterIsCalled_When_ExecuteIsCalled(){
-        _ = sut?.execute()
+    func testThatExpectationIsFulFill_When_ExecuteIsCalled(){
+        let expectation = XCTestExpectation(description: "Completion triggered")
         
-        XCTAssertEqual(1, productListConverterMock.convertProductListDataCallsCount)
-    }
-    
-    func testThatRepositoryGetProductListIsCalled_When_ExecuteIsCalled(){
-        _ = sut?.execute()
+        _ = sut?.execute(onSuccess: { productlist in
+            expectation.fulfill()
+        }, onFailure: { _ in
+            expectation.fulfill()
+        })
         
-        XCTAssertEqual(1, repositoryMock.getProductListCallsCount)
     }
 }

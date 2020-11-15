@@ -1,5 +1,5 @@
 //
-//  APIRepositoryTest.swift
+//  APIRepositoryTests.swift
 //  ShopUITests
 //
 //  Created by Javier Galera Garrido on 14/11/2020.
@@ -9,8 +9,8 @@
 import Foundation
 import XCTest
 
-class APIRepositoryTest: XCTestCase {
-    private var sut: APIRepository!
+class APIRepositoryTests: XCTestCase {
+    private var sut: APIRepository?
     private var dataSourceMock = APIDataSourceMock()
     
     override func setUp() {
@@ -19,10 +19,12 @@ class APIRepositoryTest: XCTestCase {
     }
     
     func testThatDataSourceGetProductListIsCalled_When_GetProductListIsCalled() {
-        dataSourceMock.getProductListReturnValue = [["":""]]
+        _ = sut?.getProductList(onSuccess: { _ in
+            "success"
+        }, onFailure: { _ in
+            "error"
+        })
         
-        _ = sut.getProductList()
-        
-        XCTAssertEqual(1, dataSourceMock.getProductListCallsCount)
+        XCTAssertEqual(1, dataSourceMock.getProductListOnSuccessOnFailureCallsCount)
     }
 }

@@ -1,5 +1,5 @@
 //
-//  ProductListView.swift
+//  ProductListViewTests.swift
 //  ShopUITests
 //
 //  Created by Javier Galera Garrido on 03/11/2020.
@@ -10,7 +10,7 @@ import SwiftUI
 import SnapshotTesting
 import XCTest
 
-class ProductListViewTest: XCTestCase {
+class ProductListViewTests: XCTestCase {
     override class func setUp() {
         super.setUp()
     }

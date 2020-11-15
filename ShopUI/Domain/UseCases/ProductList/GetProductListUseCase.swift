@@ -8,11 +8,10 @@
 import Foundation
 
 protocol GetProductListUseCase: AutoMockable {
-    func execute() -> ProductList
+    func execute(onSuccess: @escaping (ProductList)->(), onFailure: @escaping (String)->())
 }
 
 class GetProductListUseCaseImplementation: GetProductListUseCase {
-    
     private let converter: ProductListConverter
     private let repository: APIRepository
     
@@ -21,10 +20,12 @@ class GetProductListUseCaseImplementation: GetProductListUseCase {
         self.converter = converter
     }
     
-    func execute() -> ProductList {
-        let productListMocked = repository.getProductList()
-        let productListReturned = converter.convert(productListData: productListMocked)
-        
-        return productListReturned
+    func execute(onSuccess: @escaping (ProductList)->(), onFailure: @escaping (String)->()) {
+        repository.getProductList(onSuccess: { response in
+            guard let productList = self.converter.convert(productListData: response) else { return }
+            onSuccess(productList)
+        }, onFailure: { error in
+            onFailure(error)
+        })
     }
 }
