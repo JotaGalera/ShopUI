@@ -1,20 +1,24 @@
 PODS:
+  - Alamofire (5.2.2)
   - SnapshotTesting (1.8.2)
   - Sourcery (1.0.0)
 
 DEPENDENCIES:
+  - Alamofire
   - SnapshotTesting
   - Sourcery
 
 SPEC REPOS:
   trunk:
+    - Alamofire
     - SnapshotTesting
     - Sourcery
 
 SPEC CHECKSUMS:
+  Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
   SnapshotTesting: 38947050d13960d57a4a9c166fcf51bca7d56970
   Sourcery: 928a146ea9b777fa64b0c6ce915c4128b4488cff
 
-PODFILE CHECKSUM: cc22a063a9f8c31f47122fac70e59d776f1e7a02
+PODFILE CHECKSUM: e9556b37a7aa29ddd5fa3c16f1ebcf3a0e357f3a
 
 COCOAPODS: 1.9.0
