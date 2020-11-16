@@ -16,18 +16,12 @@ class ProductListViewModelTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        setUpMocks()
         sut = ProductListViewModelImplementation(getProductListUseCase: getProductListUseCaseMock, productList: productListMock)
     }
-    
-    func setUpMocks() {
-        productListMock.getProductsReturnValue = [Product(name: "product", brand: "brand", price: 0, currency: "€", image: "image")]
-        
-    }
-    
+
     func testThatExecutedIsCalled_When_GetProductsIsCalled() {
-        _ = sut?.getProducts()
+        _ = sut?.getProductList()
         
-        XCTAssertEqual(1, productListMock.getProductsCallsCount)
+        XCTAssertEqual(1, getProductListUseCaseMock.executeOnSuccessOnFailureCallsCount)
     }
 }

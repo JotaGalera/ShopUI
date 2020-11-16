@@ -8,30 +8,25 @@
 import Foundation
 
 protocol ProductListViewModel: AutoMockable {
-    func getProducts() -> [Product]
+    func getProductList()
 }
 
 class ProductListViewModelImplementation: ProductListViewModel, ObservableObject {
     private var getProductListUseCase: GetProductListUseCase
-    private var productList: ProductList
+    @Published var productList: ProductList
     
     
     init(getProductListUseCase: GetProductListUseCase = GetProductListUseCaseImplementation(),
          productList: ProductList = ProductListImplementation() ){
         self.getProductListUseCase = getProductListUseCase
         self.productList = productList
-        DispatchQueue.main.async {
-            self.getProductList()
-        }
     }
-    
-    func getProducts() -> [Product] {
-        return productList.getProducts()
-    }
-    
-    private func getProductList() {
+        
+    func getProductList() {
         getProductListUseCase.execute(onSuccess: { response in
-            self.productList = response
+            DispatchQueue.main.async {
+                self.productList = response
+            }
         }, onFailure: { error in
             print("\(error)")
         })
