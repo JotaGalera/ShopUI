@@ -2,8 +2,6 @@ ShopUI.xcodeproj/xcuserdata
 ShopUI.xcodeproj/project.xcworkspace
 ShopUI.xcworkspace/xcuserdata
 
-ShopUI/Data/DataSource/API/APIData
-
 *.xcuserstate
 
 Pods/

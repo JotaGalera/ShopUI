@@ -14,21 +14,15 @@ protocol APIDataSource: AutoMockable {
 
 class APIDataSourceImplementation: APIDataSource {
     private var getProductListURL: String
-    private var headers: HTTPHeaders = HTTPHeaders()
     
-    init(getProductListURL: String = APIData.getProducts,
-         header: HTTPHeader = HTTPHeader(name: "Authorization", value: APIData.authKey)){
+    init(getProductListURL: String = APIData.getProducts){
         self.getProductListURL = getProductListURL
-        self.headers.add(header)
     }
     
     func getProductList(onSuccess: @escaping (Data)->(), onFailure: @escaping (String)->()) {
         let url = APIData.getProducts
-        var header: HTTPHeaders? = HTTPHeaders()
-        header?.add(HTTPHeader(name: "Authorization", value: APIData.authKey))
-        
-        
-        AF.request(url, headers: header).validate().responseData { response in
+            
+        AF.request(url).validate().responseData { response in
             switch response.result {
                 case let .success(data):
                     onSuccess(data)
