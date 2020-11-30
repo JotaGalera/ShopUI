@@ -15,7 +15,7 @@ class ProductConverterImplementation: ProductConverter {
     func convert(data: [String:Any]) -> Product {
         return Product(name: data["name"] as! String,
                        brand: data["brand"] as! String,
-                       price: Int(data["price"] as! Int),
+                       price: data["price"] as! Int,
                        currency: data["currency"] as! String,
                        image: data["image"] as! String)
     }
