@@ -7,3 +7,5 @@ Shop app prototype:
 
 	* using SwiftUI and TDD as software development approach. 
 	* including Travis as CI tool. 
+
+The app is fed by [APIShop](https://github.com/JotaGalera/APIShop).
