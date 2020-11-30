@@ -106,6 +106,27 @@ class GetProductListUseCaseMock: GetProductListUseCase {
     }
 
 }
+class ProductConverterMock: ProductConverter {
+
+    //MARK: - convert
+
+    var convertDataCallsCount = 0
+    var convertDataCalled: Bool {
+        return convertDataCallsCount > 0
+    }
+    var convertDataReceivedData: [String:Any]?
+    var convertDataReceivedInvocations: [[String:Any]] = []
+    var convertDataReturnValue: Product!
+    var convertDataClosure: (([String:Any]) -> Product)?
+
+    func convert(data: [String:Any]) -> Product {
+        convertDataCallsCount += 1
+        convertDataReceivedData = data
+        convertDataReceivedInvocations.append(data)
+        return convertDataClosure.map({ $0(data) }) ?? convertDataReturnValue
+    }
+
+}
 class ProductListMock: ProductList {
 
     //MARK: - getProducts

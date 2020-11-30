@@ -12,16 +12,17 @@ protocol ProductListConverter: AutoMockable {
 }
 
 class ProductListConverterImplementation: ProductListConverter {
+    let productConverter: ProductConverter
+    
+    init(productConverter: ProductConverter = ProductConverterImplementation()){
+        self.productConverter = productConverter
+    }
+    
     func convert(productListData: [[String:Any]]) -> ProductList? {
         let productList = ProductListImplementation()
         
         for index in 0..<productListData.count{
-            
-            let product = Product(name: productListData[index]["name"] as! String,
-                                  brand: productListData[index]["brand"] as! String,
-                                  price: Int(productListData[index]["price"] as! Int) ?? 0,
-                                  currency: productListData[index]["currency"] as! String,
-                                  image: productListData[index]["image"] as! String)
+            let product = productConverter.convert(data: productListData[index])
             productList.setProducts(product: product)
         }
         
