@@ -16,7 +16,7 @@ class APIMapperImplementation: APIMapper {
         if let json = try? JSONSerialization.jsonObject(with: data, options: []){
             guard let array = json as? [String:Any] else { return nil }
             guard let sizeArray = array as? [String:Any] else { return nil }
-            guard let sizePageString = sizeArray["size"] as? String else { return nil }
+            guard let sizePageString = sizeArray["size"] as? Int else { return nil }
             guard let elements = array["list"] as? [[String:Any]] else { return nil }
             return elements
         }

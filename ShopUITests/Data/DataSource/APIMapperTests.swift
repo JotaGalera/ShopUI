@@ -17,12 +17,42 @@ class APIMapperTests: XCTestCase {
         sut = APIMapperImplementation()
     }
     
-    func testThatDataIsTransformedIntoStringDictionary_When_ConvertIsCalled(){
-//        let dataMock = Data(base64Encoded: "[[name : product]]")
-//        
-//        let dictionary = sut?.convert(data: dataMock)
-//        
-//        XCTAssertEqual(dictionary.self as! [[String : String]], [["name":"product"]])
+    func testThatDataIsTransformedInADictionary_When_ConvertIsCalled() {
+        let dataMock = """
+                            {
+                               "list":[
+                                  {
+                                     "id":1,
+                                     "name":"mock name",
+                                     "brand":"mock brand",
+                                     "price":10,
+                                     "currency":"€",
+                                     "image":"mock image"
+                                  }
+                               ],
+                               "page":1,
+                               "pageSize":5,
+                               "size":20
+                            }
+                        """.data(using: .utf8)!
+        
+        let dictionary = sut?.convert(data: dataMock)
+        
+        XCTAssertNotNil(dictionary)
+        XCTAssertEqual("mock name", dictionary![0]["name"] as? String)
+        XCTAssertEqual("mock brand", dictionary![0]["brand"] as? String)
+        XCTAssertEqual(10, dictionary![0]["price"] as? Int)
+        XCTAssertEqual("€", dictionary![0]["currency"] as? String)
+        XCTAssertEqual("mock image", dictionary![0]["image"] as? String)
     }
     
+    func testThatNilIsReturned_When_BadDataIsUsedByConverter() {
+        let dataMock = """
+                       bad data
+                       """.data(using: .utf8)!
+        
+        let dictionary = sut?.convert(data: dataMock)
+        
+        XCTAssertNil(dictionary)
+    }
 }
