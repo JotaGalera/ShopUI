@@ -197,4 +197,18 @@ class ProductListViewModelMock: ProductListViewModel {
         getProductListClosure?()
     }
 
+    //MARK: - getRequestDataError
+
+    var getRequestDataErrorCallsCount = 0
+    var getRequestDataErrorCalled: Bool {
+        return getRequestDataErrorCallsCount > 0
+    }
+    var getRequestDataErrorReturnValue: String!
+    var getRequestDataErrorClosure: (() -> String)?
+
+    func getRequestDataError() -> String {
+        getRequestDataErrorCallsCount += 1
+        return getRequestDataErrorClosure.map({ $0() }) ?? getRequestDataErrorReturnValue
+    }
+
 }

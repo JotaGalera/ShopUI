@@ -9,11 +9,13 @@ import Foundation
 
 protocol ProductListViewModel: AutoMockable {
     func getProductList()
+    func getRequestDataError() -> String
 }
 
 class ProductListViewModelImplementation: ProductListViewModel, ObservableObject {
     private var getProductListUseCase: GetProductListUseCase
     @Published var productList: ProductList
+    var requestDataError: String = ""
     
     
     init(getProductListUseCase: GetProductListUseCase = GetProductListUseCaseImplementation(),
@@ -28,7 +30,11 @@ class ProductListViewModelImplementation: ProductListViewModel, ObservableObject
                 self.productList = response
             }
         }, onFailure: { error in
-            print("\(error)")
+            self.requestDataError = error
         })
+    }
+    
+    func getRequestDataError() -> String {
+        return requestDataError
     }
 }
