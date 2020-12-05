@@ -11,13 +11,16 @@ import SnapshotTesting
 import XCTest
 
 class ProductListViewTests: XCTestCase {
-    override class func setUp() {
+    private var sut: ProductListView!
+    private var isRecordingScreen: Bool!
+    
+    override func setUp() {
         super.setUp()
+        isRecordingScreen = false
+        sut = ProductListView()
     }
     
     func testView() {
-        let sut = ProductListView()
-
-        assertSnapshot(matching: sut, as: .image, record: false)
+        assertSnapshot(matching: sut, as: .image, record: isRecordingScreen)
     }
 }

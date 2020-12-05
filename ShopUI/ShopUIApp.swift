@@ -12,7 +12,7 @@ struct ShopUIApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ProductListView()
+            LoadView()
         }
     }
 }

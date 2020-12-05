@@ -30,9 +30,9 @@ class APIMapperTests: XCTestCase {
                                      "image":"mock image"
                                   }
                                ],
-                               "page":1,
-                               "pageSize":5,
-                               "size":20
+                               "page":"1",
+                               "pageSize":"5",
+                               "size":"20"
                             }
                         """.data(using: .utf8)!
         

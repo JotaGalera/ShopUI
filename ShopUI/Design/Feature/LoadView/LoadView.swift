@@ -1,96 +1,116 @@
 import SwiftUI
 
-struct ContentView : View {
+struct LoadView : View {
     var body: some View {
         UIShopAnimation().padding(20)
     }
 }
 
 struct UIShopAnimation: View {
-    @State private var percentage: CGFloat = .zero
+    @State private var titlePercentage: CGFloat = .zero
+    @State private var subtitlePercentage: CGFloat = .zero
     
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 20)
-                .frame(width: 200, height: 200, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-            Title(percentage: $percentage)
-            Subtitle(percentage: $percentage)
+        NavigationView{
+            VStack{
+                ZStack {
+                    RoundedRectangle(cornerRadius: 20)
+                        .frame(width: 200, height: 200, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                    Title(titlePercentage: $titlePercentage, color: .white)
+                    Subtitle(subtitlePercentage: $subtitlePercentage, color: .white)
+                }
+                NavigationLink(
+                    destination: ProductListView(),
+                    label: {
+                        Text("Start!")
+                    })
+            }
         }
     }
 }
 
 struct Title: View {
-    @Binding var percentage: CGFloat
+    @Binding var titlePercentage: CGFloat
+    var color: Color
     
     var body: some View {
         ZStack {
             LetterU()
-                .trim(from: 0, to: percentage)
-                .stroke(Color.white,
+                .trim(from: 0, to: titlePercentage)
+                .stroke(color,
                         style: StrokeStyle(lineWidth: 12,
                                            lineCap: .round,
                                            lineJoin: .round))
                 .frame(width: 100, height: 100)
             LetterI()
-                .trim(from: 0, to: percentage)
-                .stroke(Color.white,
+                .trim(from: 0, to: titlePercentage)
+                .stroke(color,
                         style: StrokeStyle(lineWidth: 12,
                                            lineCap: .round,
                                            lineJoin: .round))
                 .frame(width: 100, height: 100)
                 .offset(x: 50)
         }
-        .animation(.easeOut(duration: 2.0))
-        .onAppear {
-            percentage = 1.0
-        }
+        .onAppear(perform: {
+            DispatchQueue.global(qos: .userInteractive).async {
+                withAnimation(Animation.easeOut(duration: 2.0)){
+                    titlePercentage = 1.0
+                }
+            }
+        })
     }
 }
 
 struct Subtitle: View {
-    @Binding var percentage: CGFloat
+    @Binding var subtitlePercentage: CGFloat
+    var color: Color
     
     var body: some View {
         ZStack {
             LetterS()
-                .trim(from: 0, to: percentage)
-                .stroke(Color.white,
+                .trim(from: 0, to: subtitlePercentage)
+                .stroke(color,
                         style: StrokeStyle(lineWidth: 6,
                                            lineCap: .round,
                                            lineJoin: .round))
                 .frame(width: 50, height: 50)
                 .offset(x: -25, y: 75)
               LetterH()
-                .trim(from: 0, to: percentage)
-                .stroke(Color.white,
+                .trim(from: 0, to: subtitlePercentage)
+                .stroke(color,
                         style: StrokeStyle(lineWidth: 6,
                                            lineCap: .round,
                                            lineJoin: .round))
                 .frame(width: 50, height: 50)
                 .offset(x: 4, y: 75)
             LetterO()
-                .trim(from: 0, to: percentage)
-                .stroke(Color.white,
+                .trim(from: 0, to: subtitlePercentage)
+                .stroke(color,
                         style: StrokeStyle(lineWidth: 6,
                                            lineCap: .round,
                                            lineJoin: .round))
                 .frame(width: 50, height: 50)
                 .offset(x: 34, y: 75)
             LetterP()
-                .trim(from: 0, to: percentage)
-                .stroke(Color.white,
+                .trim(from: 0, to: subtitlePercentage)
+                .stroke(color,
                         style: StrokeStyle(lineWidth: 6,
                                            lineCap: .round,
                                            lineJoin: .round))
                 .frame(width: 50, height: 50)
                 .offset(x: 65, y: 75)
         }
-        .animation(.easeOut(duration: 2.0))
-        .onAppear {
-            percentage = 1.0
-        }
+        .onAppear(perform: {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
+                withAnimation(Animation.easeOut(duration: 2.0)){
+                    subtitlePercentage = 1.0
+                }
+            })
+        })
+        
     }
 }
+
 struct LetterU: Shape {
     func path(in rect: CGRect) -> Path {
         Path { path in
