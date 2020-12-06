@@ -8,7 +8,7 @@
 import Foundation
 
 protocol ProductListViewModel: AutoMockable {
-    func getProductList()
+    func getProductList() 
     func getRequestDataError() -> String
 }
 

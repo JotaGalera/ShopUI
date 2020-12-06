@@ -9,33 +9,59 @@ struct LoadView : View {
 struct UIShopAnimation: View {
     @State private var titlePercentage: CGFloat = .zero
     @State private var subtitlePercentage: CGFloat = .zero
+    @State var selectionView: Int? = nil
+    
+    var productListViewModel = ProductListViewModelImplementation()
     
     var body: some View {
         NavigationView{
             VStack{
                 ZStack {
-                    RoundedRectangle(cornerRadius: 20)
-                        .frame(width: 200, height: 200, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                     VStack{
-                        Title(titlePercentage: $titlePercentage, color: .white)
+                        Title(titlePercentage: $titlePercentage,
+                              color: .white)
                             .offset(y:20)
-                        Subtitle(subtitlePercentage: $subtitlePercentage, subtitleColor: .white)
+                        Subtitle(subtitlePercentage: $subtitlePercentage,
+                                 subtitleColor: .white)
                             .offset(y:10)
                     }
+                    .background(Image("loadViewTexture"))
+                    .frame(width: 200, height: 200)
+                    .cornerRadius(20)
                 }
+                Spacer()
+                ContinueButton(selectionView: $selectionView)
+            
                 NavigationLink(
-                    destination: ProductListView(),
-                    label: {
-                        Text("Start!")
-                    })
-                    
+                    destination: ProductListView(productListViewModel: productListViewModel),
+                    tag: 1,
+                    selection: $selectionView ,
+                    label: {}
+                )
+            }
+            .onAppear(){
+                productListViewModel.getProductList()
             }
         }
     }
 }
 
+struct LoadViewButtonStyle: ButtonStyle{
+    func makeBody(configuration: Configuration) -> some View {
+        configuration
+            .label
+            .frame(width: 200, height: 50)
+            .foregroundColor(configuration.isPressed ? .gray : .accentColor)
+            .background(Image("loadViewTexture"))
+            .cornerRadius(20)
+        
+            
+    }
+}
+
 struct Title: View {
     @Binding var titlePercentage: CGFloat
+    
     var color: Color
     
     var body: some View {
@@ -68,6 +94,7 @@ struct Title: View {
 
 struct Subtitle: View {
     @Binding var subtitlePercentage: CGFloat
+    
     var subtitleColor: Color
     
     var body: some View {
@@ -103,7 +130,7 @@ struct Subtitle: View {
         }
         .frame(width: 200, height: 50, alignment: .center)
         .onAppear(perform: {
-            DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
                 withAnimation(Animation.easeOut(duration: 2.0)){
                     subtitlePercentage = 1.0
                 }
@@ -113,127 +140,24 @@ struct Subtitle: View {
     }
 }
 
-struct LetterU: Shape {
-    func path(in rect: CGRect) -> Path {
-        Path { path in
-            path.move(to: CGPoint(x: 0, y: 0))
-            path.addArc(center: CGPoint(x: rect.size.width/4,
-                                        y: rect.size.height/2),
-                        radius: rect.size.width/4,
-                        startAngle: .degrees(180),
-                        endAngle: .degrees(0),
-                        clockwise: true)
-            path.addLine(to: CGPoint(x: rect.size.width/2,y: 0))
-        }
+struct ContinueButton: View {
+    @Binding var selectionView: Int?
+    
+    var body: some View {
+        Button(action: {
+            self.selectionView = 1
+        }, label: {
+            Text("Continue")
+        }).modifier(CustomButton())
     }
 }
 
-struct LetterI: Shape {
-    func path(in rect: CGRect) -> Path {
-        Path { path in
-            path.move(to: CGPoint(x: 0, y: 0))
-            path.addLine(to: CGPoint(x: rect.size.width/2,
-                                     y: 0))
-            path.move(to: CGPoint(x: rect.size.width/2/2,
-                                  y: 0))
-            path.addLine(to: CGPoint(x: rect.size.width/2/2,
-                                     y: rect.size.height/1.5))
-            path.move(to: CGPoint(x: 0,
-                                  y: rect.size.height/1.4))
-            path.addLine(to: CGPoint(x: rect.size.width/2,
-                                     y: rect.size.height/1.4))
-        }
-    }
-}
-
-struct LetterS: Shape {
-    func path(in rect: CGRect) -> Path {
-        Path { path in
-            path.move(to: CGPoint(x: rect.width/4, y: rect.size.height/4/2))
-            path.addArc(center: CGPoint(x: rect.size.width/4/2,
-                                        y: rect.size.height/4/2),
-                        radius: rect.size.width/8,
-                        startAngle: .degrees(0),
-                        endAngle: .degrees(120),
-                        clockwise: true)
-            path.addLine(to: CGPoint(x: rect.width/4.5, y: rect.size.height/3))
-            path.addArc(center: CGPoint(x: rect.size.width/4/2,
-                                        y: rect.size.height/2.5),
-                        radius: rect.size.width/8,
-                        startAngle: .degrees(330),
-                        endAngle: .degrees(180),
-                        clockwise: false)
-        }
-    }
-}
-
-struct LetterH: Shape {
-    func path(in rect: CGRect) -> Path {
-        Path { path in
-            path.move(to: CGPoint(x: 0,
-                                  y: 0))
-            path.addLine(to: CGPoint(x: 0,
-                                     y: rect.size.height/2))
-            path.move(to: CGPoint(x: 0,
-                                  y: rect.size.height/4))
-            path.addLine(to: CGPoint(x: rect.size.height/4,
-                                     y: rect.size.height/4))
-            path.move(to: CGPoint(x: rect.size.width/3,
-                                  y: 0))
-            path.addLine(to: CGPoint(x: rect.size.width/3,
-                                     y: rect.size.height/2))
-        }
-    }
-}
-
-struct LetterO: Shape {
-    func path(in rect: CGRect) -> Path {
-        Path { path in
-            path.move(to: CGPoint(x: rect.size.width/2.4,
-                                  y: rect.size.height/4/2))
-            path.addArc(center: CGPoint(x: rect.size.width/4,
-                                        y: rect.size.height/4/2),
-                        radius: rect.size.width/6,
-                        startAngle: .degrees(0),
-                        endAngle: .degrees(180),
-                        clockwise: true)
-            path.move(to: CGPoint(x: rect.size.width/12.5,
-                                  y: rect.size.height/6))
-            path.addLine(to: CGPoint(x: rect.size.width/12.5,
-                                     y: rect.size.height/2.3))
-            path.addArc(center: CGPoint(x: rect.size.width/4,
-                                        y: rect.size.height/2.5),
-                        radius: rect.size.width/6,
-                        startAngle: .degrees(180),
-                        endAngle: .degrees(0),
-                        clockwise: true)
-            path.move(to: CGPoint(x: rect.size.width/2.4, y: rect.size.height/2.5))
-            path.addLine(to: CGPoint(x: rect.size.width/2.4, y: rect.size.height/4/2))
-        }
-    }
-}
-
-struct LetterP: Shape {
-    func path(in rect: CGRect) -> Path {
-        Path { path in
-            path.move(to: CGPoint(x: 0,
-                                  y: 0))
-            path.addLine(to: CGPoint(x: 0,
-                                     y: rect.size.height/2))
-            path.move(to: CGPoint(x: 0, y: 0))
-            path.addLine(to: CGPoint(x: rect.size.width/6,
-                                     y: 0))
-            path.move(to: CGPoint(x: 0,
-                                  y: rect.size.height/4))
-            path.addLine(to: CGPoint(x: rect.size.width/6,
-                                     y: rect.size.height/4))
-            path.addArc(center: CGPoint(x: rect.size.width/6,
-                                        y: rect.size.height/4/2),
-                        radius: rect.size.width/8,
-                        startAngle: .degrees(90),
-                        endAngle: .degrees(270),
-                        clockwise: true)
-            
-        }
+struct CustomButton: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .frame(width: 200, height: 50)
+            .foregroundColor(.white)
+            .background(Image("loadViewTexture"))
+            .cornerRadius(20)
     }
 }
