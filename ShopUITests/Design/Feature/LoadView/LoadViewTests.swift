@@ -27,11 +27,11 @@ class LoadViewTests: XCTestCase {
         XCTAssertNil(result)
     }
     
-    func testSubttile() {
-        let title = Subtitle(subtitlePercentage: .constant(1.0), color: .black)
+    func testSubtitle() {
+        let subtitle = Subtitle(subtitlePercentage: .constant(1.0), subtitleColor: .black)
         
-        let result = verifySnapshot(matching: title, as: .image)
+        let result = verifySnapshot(matching: subtitle, as: .image)
         
-        XCTAssertNil(result)
+        XCTAssertNil(result)        
     }
 }
