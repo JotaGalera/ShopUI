@@ -41,14 +41,16 @@ struct ListCell: View {
     var product: Product
     
     var body: some View {
-        HStack{
-            buildImageProduct(imageData: product.imageData)
-                .resizable()
-                .frame(width: 50, height: 50)
-            VStack(alignment: .leading) {
-                Text("\(product.name)")
-                Text("\(product.brand)")
-                    .font(.subheadline)
+        NavigationLink(destination: ProductDetailView(selectedProduct: product)){
+            HStack{
+                buildImageProduct(imageData: product.imageData)
+                    .resizable()
+                    .frame(width: 50, height: 50)
+                VStack(alignment: .leading) {
+                    Text("\(product.name)")
+                    Text("\(product.brand)")
+                        .font(.subheadline)
+                }
             }
         }
     }

@@ -7,14 +7,17 @@
 
 import SwiftUI
 
-struct ProductDetail: View {
+struct ProductDetailView: View {
+    
+    let selectedProduct: Product 
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text("\(selectedProduct.name)")
     }
 }
 
-struct ProductDetail_Previews: PreviewProvider {
+struct ProductDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ProductDetail()
+        ProductDetailView(selectedProduct: Product(name: "name", brand: "brand", price: 0, currency: "€", image: "image"))
     }
 }
