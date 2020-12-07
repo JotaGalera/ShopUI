@@ -15,10 +15,10 @@ struct UIShopAnimation: View {
     @State var isContinueButtonDisabled: Bool = true
     
     var body: some View {
-        NavigationView{
-            VStack{
+        NavigationView {
+            VStack {
                 ZStack {
-                    VStack{
+                    VStack {
                         Title(titlePercentage: $titlePercentage,
                               color: .white)
                             .offset(y:20)
@@ -42,7 +42,7 @@ struct UIShopAnimation: View {
                     label: {}
                 )
             }
-            .onAppear(){
+            .onAppear() {
                 productListViewModel.getProductList()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
                     isContinueButtonDisabled = false
