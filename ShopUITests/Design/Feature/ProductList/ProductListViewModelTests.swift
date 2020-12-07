@@ -28,17 +28,28 @@ class ProductListViewModelTests: XCTestCase {
     }
     
     func testThatProductListHasProducts_When_GetProductListIsCalled() {
+        let successExpectation = expectation(description: "success")
         let productMock = Product(name: "nameMock", brand: "brandMock", price: 1, currency: "currencyMock", image: "imageMock")
         let listMock = ProductListImplementation()
         productListMock.getProductsReturnValue = listMock.getProducts()
         productListMock.setProducts(product: productMock)
         getProductListUseCaseMock.executeOnSuccessOnFailureClosure = { success, _ in
             success(listMock)
+            successExpectation.fulfill()
         }
         
-        _ = sut.getProductList()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
+            _ = self.sut.getProductList()
+        })
         
+        waitForExpectations(timeout: 6)
         XCTAssertEqual(listMock.getProducts(), productListMock.getProducts())
+    }
+    
+    func testThatImageDataIsRequested_When_GetProductListIsCalled() {
+        _ = self.sut.getImageData()
+        
+        XCTAssertEqual(1, productListMock.getImageDataCallsCount)
     }
     
     func testThatRequestDataErrorHasAnError_When_GetProductListIsCalled() {

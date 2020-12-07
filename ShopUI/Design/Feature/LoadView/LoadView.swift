@@ -12,6 +12,7 @@ struct UIShopAnimation: View {
     @State var selectionView: Int? = nil
     
     var productListViewModel = ProductListViewModelImplementation()
+    @State var isContinueButtonDisabled: Bool = true
     
     var body: some View {
         NavigationView{
@@ -30,7 +31,9 @@ struct UIShopAnimation: View {
                     .cornerRadius(20)
                 }
                 Spacer()
-                ContinueButton(selectionView: $selectionView)
+                ContinueButton(selectionView: $selectionView,
+                               isContinueButtonDisabled: isContinueButtonDisabled)
+                    .disabled(isContinueButtonDisabled)
             
                 NavigationLink(
                     destination: ProductListView(productListViewModel: productListViewModel),
@@ -41,6 +44,9 @@ struct UIShopAnimation: View {
             }
             .onAppear(){
                 productListViewModel.getProductList()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                    isContinueButtonDisabled = false
+                }
             }
         }
     }
@@ -142,13 +148,20 @@ struct Subtitle: View {
 
 struct ContinueButton: View {
     @Binding var selectionView: Int?
+    var isContinueButtonDisabled: Bool
     
     var body: some View {
-        Button(action: {
-            self.selectionView = 1
-        }, label: {
-            Text("Continue")
-        }).modifier(CustomButton())
+        if isContinueButtonDisabled {
+            Button(action: {},
+                   label: { Text("") })
+                
+        } else {
+            Button(action: {
+                self.selectionView = 1
+            }, label: {
+                Text("Continue")
+            }).modifier(CustomButton())
+        }
     }
 }
 

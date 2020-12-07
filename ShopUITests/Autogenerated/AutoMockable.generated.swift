@@ -160,6 +160,19 @@ class ProductListMock: ProductList {
         setProductsProductClosure?(product)
     }
 
+    //MARK: - getImageData
+
+    var getImageDataCallsCount = 0
+    var getImageDataCalled: Bool {
+        return getImageDataCallsCount > 0
+    }
+    var getImageDataClosure: (() -> Void)?
+
+    func getImageData() {
+        getImageDataCallsCount += 1
+        getImageDataClosure?()
+    }
+
 }
 class ProductListConverterMock: ProductListConverter {
 
@@ -209,6 +222,19 @@ class ProductListViewModelMock: ProductListViewModel {
     func getRequestDataError() -> String {
         getRequestDataErrorCallsCount += 1
         return getRequestDataErrorClosure.map({ $0() }) ?? getRequestDataErrorReturnValue
+    }
+
+    //MARK: - getImageData
+
+    var getImageDataCallsCount = 0
+    var getImageDataCalled: Bool {
+        return getImageDataCallsCount > 0
+    }
+    var getImageDataClosure: (() -> Void)?
+
+    func getImageData() {
+        getImageDataCallsCount += 1
+        getImageDataClosure?()
     }
 
 }
