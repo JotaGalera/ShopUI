@@ -10,11 +10,12 @@ import Foundation
 struct Product: Identifiable {
     var id = UUID()
     
-    var name : String
-    var brand : String
-    var price : Int
-    var currency : String
-    var image : String
+    var name: String
+    var brand: String
+    var price: Int
+    var currency: String
+    var image: String
+    var imageData: Data?
 }
 
 extension Product: Equatable {

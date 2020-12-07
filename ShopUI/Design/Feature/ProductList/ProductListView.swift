@@ -17,15 +17,17 @@ struct ProductListView: View {
                 .font(Font.system(size: 40, design: .default))
             Divider()
             List(productListViewModel.productList.getProducts()) { product in
-                let imageUrl = URL(string: product.image)!
-                let imageData = try? Data(contentsOf: imageUrl)
-                if let imageData = imageData, let image = UIImage(data: imageData) {
+                if let imageData = product.imageData,
+                   let image = UIImage(data: imageData) {
                     Image(uiImage: image)
                         .resizable()
                         .frame(width: 50, height: 50)
                 }else{
                     Image(systemName: "photo.fill")
+                        .resizable()
+                        .frame(width: 50, height: 50)
                 }
+                
                 VStack(alignment: .leading) {
                     Text("\(product.name)")
                     Text("\(product.brand)")
@@ -33,11 +35,12 @@ struct ProductListView: View {
                 }
                 
             }
-            .navigationBarTitle("") //this must be empty
+            .navigationBarTitle("")
             .navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
             .onAppear(){
                 productListViewModel.getProductList()
+                
             }
         }
     }

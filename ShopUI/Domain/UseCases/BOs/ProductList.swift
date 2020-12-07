@@ -10,6 +10,7 @@ import Foundation
 protocol ProductList: AutoMockable {
     func getProducts() -> [Product]
     func setProducts(product: Product)
+    func getImageData()
 }
 
 class ProductListImplementation: ProductList {
@@ -21,6 +22,16 @@ class ProductListImplementation: ProductList {
     
     func getProducts() -> [Product] {
         return products
+    }
+    
+    func getImageData() {
+        for index in 0..<products.count {
+            guard let imageURL = URL(string: products[index].image) else {
+                return
+            }
+            let imageData = try? Data(contentsOf: imageURL)
+            products[index].imageData = imageData
+        }
     }
 }
 

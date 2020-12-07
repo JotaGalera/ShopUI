@@ -8,8 +8,9 @@
 import Foundation
 
 protocol ProductListViewModel: AutoMockable {
-    func getProductList() 
+    func getProductList()
     func getRequestDataError() -> String
+    func getImageData()
 }
 
 class ProductListViewModelImplementation: ProductListViewModel, ObservableObject {
@@ -26,12 +27,17 @@ class ProductListViewModelImplementation: ProductListViewModel, ObservableObject
         
     func getProductList() {
         getProductListUseCase.execute(onSuccess: { response in
-            DispatchQueue.main.async {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 4, execute: {
                 self.productList = response
-            }
+                self.getImageData()
+            })
         }, onFailure: { error in
             self.requestDataError = error
         })
+    }
+    
+    func getImageData() {
+        self.productList.getImageData()
     }
     
     func getRequestDataError() -> String {
