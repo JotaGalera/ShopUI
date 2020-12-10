@@ -127,6 +127,9 @@ class ProductConverterMock: ProductConverter {
     }
 
 }
+class ProductDetailViewModelMock: ProductDetailViewModel {
+
+}
 class ProductListMock: ProductList {
 
     //MARK: - getProducts

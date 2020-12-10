@@ -17,8 +17,8 @@ class ProductConverterTests: XCTestCase {
     }
     
     func testThatAProductIsReturned_When_ConvertIsCalled(){
-        let productMock = Product(name: "trainers",brand: "Adidas",price: 50,currency: "€",image: "image")
-        let productDataMock: [String: Any] = ["name":"trainers","brand":"Adidas","price":50,"currency":"€","image":"image"]
+        let productMock = Product(name: "trainers",brand: "Adidas",price: 50.0,currency: "€",image: "image")
+        let productDataMock: [String: Any] = ["name":"trainers","brand":"Adidas","price":50.0,"currency":"€","image":"image"]
         
         let productConverted = sut.convert(data: productDataMock)
         

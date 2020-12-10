@@ -12,7 +12,7 @@ struct Product: Identifiable {
     
     var name: String
     var brand: String
-    var price: Int
+    var price: Double
     var currency: String
     var image: String
     var imageData: Data?

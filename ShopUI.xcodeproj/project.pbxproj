@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0B1281E49D5FB91F3783ECEA /* libPods-ShopUIUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F590BD32C0794C9839CBCB1B /* libPods-ShopUIUITests.a */; };
 		1FF5F93415DD45646B847C9E /* Pods_ShopUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FDACE5E6F27CF70703ACE90 /* Pods_ShopUI.framework */; };
+		8905F90B2582CC7700413DB9 /* ProductDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8905F90A2582CC7700413DB9 /* ProductDetailViewModel.swift */; };
+		8905F9102582CC8000413DB9 /* ProductDetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8905F90F2582CC8000413DB9 /* ProductDetailViewModelTests.swift */; };
 		89122767254DF72C0004E105 /* AutoMockable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89122766254DF72C0004E105 /* AutoMockable.swift */; };
 		8916F2472575630F00216AAF /* ProductConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8916F2462575630F00216AAF /* ProductConverter.swift */; };
 		8916F24C2575632200216AAF /* ProductConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8916F24B2575632200216AAF /* ProductConverterTests.swift */; };
@@ -65,6 +67,8 @@
 		3FDACE5E6F27CF70703ACE90 /* Pods_ShopUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShopUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5690F29F8A99F48438C494A1 /* Pods-ShopUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShopUI.release.xcconfig"; path = "Target Support Files/Pods-ShopUI/Pods-ShopUI.release.xcconfig"; sourceTree = "<group>"; };
 		7644B2FD9275296B836619CD /* Pods-ShopUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShopUITests.release.xcconfig"; path = "Target Support Files/Pods-ShopUITests/Pods-ShopUITests.release.xcconfig"; sourceTree = "<group>"; };
+		8905F90A2582CC7700413DB9 /* ProductDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailViewModel.swift; sourceTree = "<group>"; };
+		8905F90F2582CC8000413DB9 /* ProductDetailViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailViewModelTests.swift; sourceTree = "<group>"; };
 		89122766254DF72C0004E105 /* AutoMockable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoMockable.swift; sourceTree = "<group>"; };
 		8916F2462575630F00216AAF /* ProductConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductConverter.swift; sourceTree = "<group>"; };
 		8916F24B2575632200216AAF /* ProductConverterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductConverterTests.swift; sourceTree = "<group>"; };
@@ -440,6 +444,7 @@
 			isa = PBXGroup;
 			children = (
 				89F06880257EE0A40029BE5C /* ProductDetailView.swift */,
+				8905F90A2582CC7700413DB9 /* ProductDetailViewModel.swift */,
 			);
 			path = ProductDetail;
 			sourceTree = "<group>";
@@ -448,6 +453,7 @@
 			isa = PBXGroup;
 			children = (
 				89F0688C257EF2760029BE5C /* ProductDetailViewTests.swift */,
+				8905F90F2582CC8000413DB9 /* ProductDetailViewModelTests.swift */,
 			);
 			path = ProductDetail;
 			sourceTree = "<group>";
@@ -765,6 +771,7 @@
 				895147B7255F48C0001DA941 /* APIRepository.swift in Sources */,
 				8938704D254EEB6300F0F6E1 /* Product.swift in Sources */,
 				895147CD255F578D001DA941 /* APIDataSource.swift in Sources */,
+				8905F90B2582CC7700413DB9 /* ProductDetailViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -783,6 +790,7 @@
 				89822F56255073C800902416 /* AutoMockable.generated.swift in Sources */,
 				8916F24C2575632200216AAF /* ProductConverterTests.swift in Sources */,
 				897BA5282551F09E00D87FE0 /* ProductListViewModelTests.swift in Sources */,
+				8905F9102582CC8000413DB9 /* ProductDetailViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
