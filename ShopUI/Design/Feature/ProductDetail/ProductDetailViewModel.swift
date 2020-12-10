@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol ProductDetailViewModel: AutoMockable {}
+protocol ProductDetailsViewModel: AutoMockable {}
 
-class ProductDetailViewModelImplementation: ProductDetailViewModel {}
+class ProductDetailViewModelImplementation: ProductDetailsViewModel {}

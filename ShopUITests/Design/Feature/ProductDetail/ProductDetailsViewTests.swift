@@ -1,5 +1,5 @@
 //
-//  ProductDetailViewTests.swift
+//  ProductDetailsViewTests.swift
 //  ShopUITests
 //
 //  Created by Javier Galera Garrido on 08/12/2020.
@@ -11,10 +11,10 @@ import SwiftUI
 import SnapshotTesting
 import XCTest
 
-class ProductDetailViewTests: XCTestCase {
+class ProductDetailsViewTests: XCTestCase {
     func testProductDetailView() {
         let productMock = Product(name: "nameMock", brand: "brandMock", price: 1, currency: "currencyMock", image: "imageMock")
-        let productDetailView = ProductDetailView(selectedProduct: productMock)
+        let productDetailView = ProductDetailsView(selectedProduct: productMock)
         
         let result = verifySnapshot(matching: productDetailView, as: .image)
         

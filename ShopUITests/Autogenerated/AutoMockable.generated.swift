@@ -86,6 +86,23 @@ class APIRepositoryMock: APIRepository {
     }
 
 }
+class GetProductDetailsUseCaseMock: GetProductDetailsUseCase {
+
+    //MARK: - execute
+
+    var executeCallsCount = 0
+    var executeCalled: Bool {
+        return executeCallsCount > 0
+    }
+    var executeReturnValue: Bool!
+    var executeClosure: (() -> Bool)?
+
+    func execute() -> Bool {
+        executeCallsCount += 1
+        return executeClosure.map({ $0() }) ?? executeReturnValue
+    }
+
+}
 class GetProductListUseCaseMock: GetProductListUseCase {
 
     //MARK: - execute
@@ -127,7 +144,20 @@ class ProductConverterMock: ProductConverter {
     }
 
 }
-class ProductDetailViewModelMock: ProductDetailViewModel {
+class ProductDetailsViewModelMock: ProductDetailsViewModel {
+
+    //MARK: - getProductDetails
+
+    var getProductDetailsCallsCount = 0
+    var getProductDetailsCalled: Bool {
+        return getProductDetailsCallsCount > 0
+    }
+    var getProductDetailsClosure: (() -> Void)?
+
+    func getProductDetails() {
+        getProductDetailsCallsCount += 1
+        getProductDetailsClosure?()
+    }
 
 }
 class ProductListMock: ProductList {
