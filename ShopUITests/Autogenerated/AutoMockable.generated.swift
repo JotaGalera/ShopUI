@@ -191,6 +191,20 @@ class ProductConverterMock: ProductConverter {
 }
 class ProductDetailsConfiguratorMock: ProductDetailsConfigurator {
 
+    //MARK: - configure
+
+    var configureCallsCount = 0
+    var configureCalled: Bool {
+        return configureCallsCount > 0
+    }
+    var configureReturnValue: GetProductDetailsUseCase!
+    var configureClosure: (() -> GetProductDetailsUseCase)?
+
+    func configure() -> GetProductDetailsUseCase {
+        configureCallsCount += 1
+        return configureClosure.map({ $0() }) ?? configureReturnValue
+    }
+
 }
 class ProductDetailsViewModelMock: ProductDetailsViewModel {
 
@@ -252,6 +266,23 @@ class ProductListMock: ProductList {
     func getImageData() {
         getImageDataCallsCount += 1
         getImageDataClosure?()
+    }
+
+}
+class ProductListConfiguratorMock: ProductListConfigurator {
+
+    //MARK: - configure
+
+    var configureCallsCount = 0
+    var configureCalled: Bool {
+        return configureCallsCount > 0
+    }
+    var configureReturnValue: GetProductListUseCase!
+    var configureClosure: (() -> GetProductListUseCase)?
+
+    func configure() -> GetProductListUseCase {
+        configureCallsCount += 1
+        return configureClosure.map({ $0() }) ?? configureReturnValue
     }
 
 }

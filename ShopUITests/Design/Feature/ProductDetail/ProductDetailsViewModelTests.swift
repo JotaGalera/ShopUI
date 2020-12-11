@@ -12,10 +12,13 @@ import XCTest
 class ProductDetailsViewModelTests: XCTestCase {
     private var sut: ProductDetailsViewModelImplementation!
     private var getProductDetailsUseCaseMock: GetProductDetailsUseCaseMock!
+    private var configuratorMock: ProductDetailsConfiguratorMock!
     
     override func setUp() {
         getProductDetailsUseCaseMock = GetProductDetailsUseCaseMock()
-        sut = ProductDetailsViewModelImplementation(getProductDetailsUseCase: getProductDetailsUseCaseMock)
+        configuratorMock = ProductDetailsConfiguratorMock()
+        configuratorMock.configureReturnValue = getProductDetailsUseCaseMock
+        sut = ProductDetailsViewModelImplementation(configurator: configuratorMock)
     }
     
     func testThatGetProductDetailsUseCaseIsCalled_When_GetProductDetailsIsCalled() {

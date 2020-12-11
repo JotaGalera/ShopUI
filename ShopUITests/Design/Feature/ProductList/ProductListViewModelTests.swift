@@ -13,12 +13,15 @@ class ProductListViewModelTests: XCTestCase {
     private var sut: ProductListViewModel!
     private var getProductListUseCaseMock: GetProductListUseCaseMock!
     private var productListMock: ProductListMock!
+    private var configuratorMock: ProductListConfiguratorMock!
     
     override func setUp() {
         super.setUp()
         getProductListUseCaseMock = GetProductListUseCaseMock()
+        configuratorMock = ProductListConfiguratorMock()
+        configuratorMock.configureReturnValue = getProductListUseCaseMock
         productListMock = ProductListMock()
-        sut = ProductListViewModelImplementation(getProductListUseCase: getProductListUseCaseMock, productList: productListMock)
+        sut = ProductListViewModelImplementation(configurator: configuratorMock, productList: productListMock)
     }
 
     func testThatExecutedIsCalled_When_GetProductsIsCalled() {
