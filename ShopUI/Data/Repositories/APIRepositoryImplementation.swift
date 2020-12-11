@@ -12,9 +12,9 @@ class APIRepositoryImplementation: APIRepository {
     private var listMapper: APIListMapper
     private var detailsMapper: APIDetailsMapper
     
-    init(dataSource: APIDataSource = APIDataSourceImplementation(),
-         listMapper: APIListMapper = APIListMapperImplementation(),
-         detailsMapper: APIDetailsMapper = APIDetailsMapperImplementation()){
+    init(dataSource: APIDataSource,
+         listMapper: APIListMapper,
+         detailsMapper: APIDetailsMapper){
         self.dataSource = dataSource
         self.listMapper = listMapper
         self.detailsMapper = detailsMapper

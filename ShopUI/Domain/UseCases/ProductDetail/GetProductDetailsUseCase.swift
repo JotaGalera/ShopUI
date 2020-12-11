@@ -14,7 +14,7 @@ protocol GetProductDetailsUseCase: AutoMockable {
 class GetProductDetailsUseCaseImplementation: GetProductDetailsUseCase {
     private var repository: APIRepository
     
-    init(repository: APIRepository = APIRepositoryImplementation()){
+    init(repository: APIRepository){
         self.repository = repository
     }
     

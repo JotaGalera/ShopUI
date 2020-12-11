@@ -13,9 +13,11 @@ protocol ProductDetailsViewModel: AutoMockable {
 
 class ProductDetailsViewModelImplementation: ProductDetailsViewModel {
     private var getProductDetailsUseCase: GetProductDetailsUseCase
+    private var configurator: ProductDetailsConfigurator
     
-    init(getProductDetailsUseCase: GetProductDetailsUseCase = GetProductDetailsUseCaseImplementation()){
-        self.getProductDetailsUseCase = getProductDetailsUseCase
+    init(configurator: ProductDetailsConfigurator = ProductDetailsConfiguratorImplementation()){
+        self.configurator = configurator
+        self.getProductDetailsUseCase = self.configurator.configure()
     }
     
     func getProductDetails() {

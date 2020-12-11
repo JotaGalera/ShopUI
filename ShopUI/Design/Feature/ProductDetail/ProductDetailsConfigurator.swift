@@ -1,6 +1,14 @@
+//
+//  ProductDetailsConfigurator.swift
+//  ShopUI
+//
+//  Created by Javier Galera Garrido on 11/12/2020.
+//
 import Foundation
 
-protocol ProductDetailsConfigurator: AutoMockable {}
+protocol ProductDetailsConfigurator: AutoMockable {
+    func configure() -> GetProductDetailsUseCase
+}
 
 class ProductDetailsConfiguratorImplementation: ProductDetailsConfigurator {
     func configure() -> GetProductDetailsUseCase {
