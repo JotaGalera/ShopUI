@@ -9,4 +9,5 @@ import Foundation
 
 struct APIData {
     static let getProducts = "https://api-shop-ui.herokuapp.com/products"
+    static let getDetails = "https://api-shop-ui.herokuapp.com/products/details/?product_id="
 }
