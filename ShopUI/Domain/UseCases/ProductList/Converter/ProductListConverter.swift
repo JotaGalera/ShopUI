@@ -14,7 +14,7 @@ protocol ProductListConverter: AutoMockable {
 class ProductListConverterImplementation: ProductListConverter {
     let productConverter: ProductConverter
     
-    init(productConverter: ProductConverter = ProductConverterImplementation()){
+    init(productConverter: ProductConverter){
         self.productConverter = productConverter
     }
     

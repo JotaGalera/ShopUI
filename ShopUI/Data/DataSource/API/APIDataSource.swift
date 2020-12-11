@@ -16,7 +16,7 @@ protocol APIDataSource: AutoMockable {
 class APIDataSourceImplementation: APIDataSource {
     private var getProductListURL: String
     
-    init(getProductListURL: String = APIData.getProducts){
+    init(getProductListURL: String){
         self.getProductListURL = getProductListURL
     }
     

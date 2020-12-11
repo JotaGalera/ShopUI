@@ -15,7 +15,7 @@ class GetProductListUseCaseImplementation: GetProductListUseCase {
     private let converter: ProductListConverter
     private let repository: APIRepository
     
-    init(repository: APIRepository = APIRepositoryImplementation(), converter: ProductListConverter = ProductListConverterImplementation()) {
+    init(repository: APIRepository, converter: ProductListConverter) {
         self.repository = repository
         self.converter = converter
     }

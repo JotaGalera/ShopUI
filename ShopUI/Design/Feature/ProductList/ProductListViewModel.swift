@@ -15,13 +15,15 @@ protocol ProductListViewModel: AutoMockable {
 
 class ProductListViewModelImplementation: ProductListViewModel, ObservableObject {
     private var getProductListUseCase: GetProductListUseCase
+    private var configurator: ProductListConfigurator
     @Published var productList: ProductList
     var requestDataError: String = ""
     
     
-    init(getProductListUseCase: GetProductListUseCase = GetProductListUseCaseImplementation(),
+    init(configurator: ProductListConfigurator = ProductListConfiguratorImplementation(),
          productList: ProductList = ProductListImplementation() ){
-        self.getProductListUseCase = getProductListUseCase
+        self.configurator = configurator
+        self.getProductListUseCase = self.configurator.configure()
         self.productList = productList
     }
         
