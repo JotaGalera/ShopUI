@@ -26,6 +26,6 @@ class APIRepositoryImplementation: APIRepository {
     }
     
     func getProductDetails()->Bool {
-        return true
+        return dataSource.getProductDetails()
     }
 }

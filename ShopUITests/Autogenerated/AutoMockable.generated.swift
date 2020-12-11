@@ -44,6 +44,20 @@ class APIDataSourceMock: APIDataSource {
         getProductListOnSuccessOnFailureClosure?(onSuccess, onFailure)
     }
 
+    //MARK: - getProductDetails
+
+    var getProductDetailsCallsCount = 0
+    var getProductDetailsCalled: Bool {
+        return getProductDetailsCallsCount > 0
+    }
+    var getProductDetailsReturnValue: Bool!
+    var getProductDetailsClosure: (() -> Bool)?
+
+    func getProductDetails() -> Bool {
+        getProductDetailsCallsCount += 1
+        return getProductDetailsClosure.map({ $0() }) ?? getProductDetailsReturnValue
+    }
+
 }
 class APIMapperMock: APIMapper {
 

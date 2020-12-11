@@ -10,6 +10,7 @@ import Foundation
 
 protocol APIDataSource: AutoMockable {
     func getProductList(onSuccess: @escaping (Data)->(), onFailure: @escaping (String)->())
+    func getProductDetails()->Bool
 }
 
 class APIDataSourceImplementation: APIDataSource {
@@ -30,5 +31,9 @@ class APIDataSourceImplementation: APIDataSource {
                     onFailure("\(error)")
                 }
         }
+    }
+    
+    func getProductDetails() -> Bool {
+        return true
     }
 }

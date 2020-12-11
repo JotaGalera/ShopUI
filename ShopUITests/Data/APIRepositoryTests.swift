@@ -81,9 +81,19 @@ class APIRepositoryTests: XCTestCase {
     }
     
     func testThatTrueIsReturned_When_GetProductDetailsIsCalled() {
+        dataSourceMock.getProductDetailsReturnValue = true
+        
         let result = sut.getProductDetails()
         
         XCTAssertTrue(result)
+    }
+    
+    func testThatAPIDataSourceIsCalled_When_GetproductDetailsIsCalled() {
+        dataSourceMock.getProductDetailsReturnValue = true
+        
+        _ = sut.getProductDetails()
+        
+        XCTAssertEqual(1, dataSourceMock.getProductDetailsCallsCount)
     }
 }
 
