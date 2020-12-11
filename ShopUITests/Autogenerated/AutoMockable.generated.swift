@@ -59,7 +59,24 @@ class APIDataSourceMock: APIDataSource {
     }
 
 }
-class APIMapperMock: APIMapper {
+class APIDetailsMapperMock: APIDetailsMapper {
+
+    //MARK: - convert
+
+    var convertCallsCount = 0
+    var convertCalled: Bool {
+        return convertCallsCount > 0
+    }
+    var convertReturnValue: Bool!
+    var convertClosure: (() -> Bool)?
+
+    func convert() -> Bool {
+        convertCallsCount += 1
+        return convertClosure.map({ $0() }) ?? convertReturnValue
+    }
+
+}
+class APIListMapperMock: APIListMapper {
 
     //MARK: - convert
 
@@ -170,6 +187,9 @@ class ProductConverterMock: ProductConverter {
         convertDataReceivedInvocations.append(data)
         return convertDataClosure.map({ $0(data) }) ?? convertDataReturnValue
     }
+
+}
+class ProductDetailsConfiguratorMock: ProductDetailsConfigurator {
 
 }
 class ProductDetailsViewModelMock: ProductDetailsViewModel {

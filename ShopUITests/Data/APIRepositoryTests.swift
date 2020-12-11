@@ -12,13 +12,15 @@ import XCTest
 class APIRepositoryTests: XCTestCase {
     private var sut: APIRepository!
     private var dataSourceMock: APIDataSourceMock!
-    private var mapperMock: APIMapperMock!
+    private var listMapperMock: APIListMapperMock!
+    private var detailsMapperMock: APIDetailsMapperMock!
     
     override func setUp() {
         super.setUp()
         dataSourceMock = APIDataSourceMock()
-        mapperMock = APIMapperMock()
-        sut = APIRepositoryImplementation(dataSource: dataSourceMock, mapper: mapperMock)
+        listMapperMock = APIListMapperMock()
+        detailsMapperMock = APIDetailsMapperMock()
+        sut = APIRepositoryImplementation(dataSource: dataSourceMock, listMapper: listMapperMock, detailsMapper: detailsMapperMock)
     }
     
     func testThatDataSourceGetProductListIsCalled_When_GetProductListIsCalled() {
@@ -29,7 +31,7 @@ class APIRepositoryTests: XCTestCase {
     
     func testThatMapperConvertIsCalled_When_GetProductListIsCalled() {
         let productListDataMock = [["name":"mock name","brand":"mock brand","price":10,"currency":"€","image":"mock image"]]
-        mapperMock.convertDataReturnValue = productListDataMock
+        listMapperMock.convertDataReturnValue = productListDataMock
         dataSourceMock.getProductListOnSuccessOnFailureClosure = { success, _ in
             guard let dataMock = String( "{list: [{id: 1,name: mock name,brand: mock brand,price: 10,currency: €,image: mock image}],page: 1,pageSize: 5,size: 20}").data(using: .utf8)
             else { return }
@@ -38,13 +40,13 @@ class APIRepositoryTests: XCTestCase {
         
         _ = sut.getProductList(onSuccess: { _ in }, onFailure: { _ in })
         
-        XCTAssertEqual(1, mapperMock.convertDataCallsCount)
+        XCTAssertEqual(1, listMapperMock.convertDataCallsCount)
     }
     
     func testThatADictionaryWithDataProductsIsGetted_When_GetProductListIsCalled() {
         let productListDataMock = [["name":"mock name","brand":"mock brand","price":10,"currency":"€","image":"mock image"]]
         let successExpectation = expectation(description: "success")
-        mapperMock.convertDataReturnValue = productListDataMock
+        listMapperMock.convertDataReturnValue = productListDataMock
         dataSourceMock.getProductListOnSuccessOnFailureClosure = { success, _ in
             guard let dataMock = String( "{list: [{id: 1,name: mock name,brand: mock brand,price: 10,currency: €,image: mock image}],page: 1,pageSize: 5,size: 20}").data(using: .utf8)
             else { return }
@@ -61,7 +63,7 @@ class APIRepositoryTests: XCTestCase {
         }, onFailure: { _ in })
         
         waitForExpectations(timeout: 10)
-        XCTAssertEqual(1, mapperMock.convertDataCallsCount)
+        XCTAssertEqual(1, listMapperMock.convertDataCallsCount)
     }
     
     func testThatAnErrorMessageIsReceived_When_GetProductListIsCalled() {
@@ -77,7 +79,7 @@ class APIRepositoryTests: XCTestCase {
                                })
         
         waitForExpectations(timeout: 10)
-        XCTAssertEqual(0, mapperMock.convertDataCallsCount)
+        XCTAssertEqual(0, listMapperMock.convertDataCallsCount)
     }
     
     func testThatTrueIsReturned_When_GetProductDetailsIsCalled() {

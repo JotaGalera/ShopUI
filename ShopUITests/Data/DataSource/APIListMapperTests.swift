@@ -1,5 +1,5 @@
 //
-//  APIMapperTests.swift
+//  APIListMapperTests.swift
 //  ShopUITests
 //
 //  Created by Javier Galera Garrido on 15/11/2020.
@@ -9,12 +9,12 @@
 import Foundation
 import XCTest
 
-class APIMapperTests: XCTestCase {
-    private var sut: APIMapper?
+class APIListMapperTests: XCTestCase {
+    private var sut: APIListMapper?
     
     override func setUp() {
         super.setUp()
-        sut = APIMapperImplementation()
+        sut = APIListMapperImplementation()
     }
     
     func testThatDataIsTransformedInADictionary_When_ConvertIsCalled() {

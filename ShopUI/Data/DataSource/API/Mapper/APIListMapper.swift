@@ -1,5 +1,5 @@
 //
-//  APIMapper.swift
+//  APIListMapper.swift
 //  ShopUI
 //
 //  Created by Javier Galera Garrido on 15/11/2020.
@@ -7,11 +7,11 @@
 
 import Foundation
 
-protocol APIMapper : AutoMockable {
+protocol APIListMapper : AutoMockable {
     func convert(data: Data) -> [[String:Any]]?
 }
 
-class APIMapperImplementation: APIMapper {
+class APIListMapperImplementation: APIListMapper {
     func convert(data: Data) -> [[String:Any]]? {
         if let json = try? JSONSerialization.jsonObject(with: data, options: []){
             guard let array = json as? [String:Any] else { return nil }
