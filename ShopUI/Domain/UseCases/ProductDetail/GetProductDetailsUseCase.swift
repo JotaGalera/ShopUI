@@ -12,7 +12,13 @@ protocol GetProductDetailsUseCase: AutoMockable {
 }
 
 class GetProductDetailsUseCaseImplementation: GetProductDetailsUseCase {
+    private var repository: APIRepository
+    
+    init(repository: APIRepository = APIRepositoryImplementation()){
+        self.repository = repository
+    }
+    
     func execute() -> Bool {
-        return true
+        return repository.getProductDetails()
     }
 }

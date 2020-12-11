@@ -79,5 +79,11 @@ class APIRepositoryTests: XCTestCase {
         waitForExpectations(timeout: 10)
         XCTAssertEqual(0, mapperMock.convertDataCallsCount)
     }
+    
+    func testThatTrueIsReturned_When_GetProductDetailsIsCalled() {
+        let result = sut.getProductDetails()
+        
+        XCTAssertTrue(result)
+    }
 }
 

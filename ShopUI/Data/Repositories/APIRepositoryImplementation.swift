@@ -24,4 +24,8 @@ class APIRepositoryImplementation: APIRepository {
             onFailure(error)
         })
     }
+    
+    func getProductDetails()->Bool {
+        return true
+    }
 }
