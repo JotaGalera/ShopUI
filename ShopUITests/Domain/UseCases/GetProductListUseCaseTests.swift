@@ -35,11 +35,11 @@ class GetProductListUseCaseTests: XCTestCase {
         }
         
         _ = sut?.execute(onSuccess: { productlist in
-            XCTAssertEqual(1, self.repositoryMock.getProductListOnSuccessOnFailureCallsCount)
             successExpectation.fulfill()
         }, onFailure: { _ in })
         
         waitForExpectations(timeout: 10)
+        XCTAssertEqual(1, self.repositoryMock.getProductListOnSuccessOnFailureCallsCount)
     }
     
     func testThatErrorIsReturned_When_ExecuteIsCalled() {

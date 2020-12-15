@@ -46,16 +46,19 @@ class APIDataSourceMock: APIDataSource {
 
     //MARK: - getProductDetails
 
-    var getProductDetailsCallsCount = 0
-    var getProductDetailsCalled: Bool {
-        return getProductDetailsCallsCount > 0
+    var getProductDetailsProductIdOnSuccessOnFailureCallsCount = 0
+    var getProductDetailsProductIdOnSuccessOnFailureCalled: Bool {
+        return getProductDetailsProductIdOnSuccessOnFailureCallsCount > 0
     }
-    var getProductDetailsReturnValue: Bool!
-    var getProductDetailsClosure: (() -> Bool)?
+    var getProductDetailsProductIdOnSuccessOnFailureReceivedArguments: (product_id: Int, onSuccess: (Data)->(), onFailure: (String)->())?
+    var getProductDetailsProductIdOnSuccessOnFailureReceivedInvocations: [(product_id: Int, onSuccess: (Data)->(), onFailure: (String)->())] = []
+    var getProductDetailsProductIdOnSuccessOnFailureClosure: ((Int, @escaping (Data)->(), @escaping (String)->()) -> Void)?
 
-    func getProductDetails() -> Bool {
-        getProductDetailsCallsCount += 1
-        return getProductDetailsClosure.map({ $0() }) ?? getProductDetailsReturnValue
+    func getProductDetails(product_id: Int, onSuccess: @escaping (Data)->(), onFailure: @escaping (String)->()) {
+        getProductDetailsProductIdOnSuccessOnFailureCallsCount += 1
+        getProductDetailsProductIdOnSuccessOnFailureReceivedArguments = (product_id: product_id, onSuccess: onSuccess, onFailure: onFailure)
+        getProductDetailsProductIdOnSuccessOnFailureReceivedInvocations.append((product_id: product_id, onSuccess: onSuccess, onFailure: onFailure))
+        getProductDetailsProductIdOnSuccessOnFailureClosure?(product_id, onSuccess, onFailure)
     }
 
 }
@@ -63,16 +66,20 @@ class APIDetailsMapperMock: APIDetailsMapper {
 
     //MARK: - convert
 
-    var convertCallsCount = 0
-    var convertCalled: Bool {
-        return convertCallsCount > 0
+    var convertDataCallsCount = 0
+    var convertDataCalled: Bool {
+        return convertDataCallsCount > 0
     }
-    var convertReturnValue: Bool!
-    var convertClosure: (() -> Bool)?
+    var convertDataReceivedData: Data?
+    var convertDataReceivedInvocations: [Data] = []
+    var convertDataReturnValue: [String:Any]?
+    var convertDataClosure: ((Data) -> [String:Any]?)?
 
-    func convert() -> Bool {
-        convertCallsCount += 1
-        return convertClosure.map({ $0() }) ?? convertReturnValue
+    func convert(data: Data) -> [String:Any]? {
+        convertDataCallsCount += 1
+        convertDataReceivedData = data
+        convertDataReceivedInvocations.append(data)
+        return convertDataClosure.map({ $0(data) }) ?? convertDataReturnValue
     }
 
 }
@@ -118,16 +125,19 @@ class APIRepositoryMock: APIRepository {
 
     //MARK: - getProductDetails
 
-    var getProductDetailsCallsCount = 0
-    var getProductDetailsCalled: Bool {
-        return getProductDetailsCallsCount > 0
+    var getProductDetailsProductIdOnSuccessOnFailureCallsCount = 0
+    var getProductDetailsProductIdOnSuccessOnFailureCalled: Bool {
+        return getProductDetailsProductIdOnSuccessOnFailureCallsCount > 0
     }
-    var getProductDetailsReturnValue: Bool!
-    var getProductDetailsClosure: (() -> Bool)?
+    var getProductDetailsProductIdOnSuccessOnFailureReceivedArguments: (product_id: Int, onSuccess: ([String : Any])->(), onFailure: (String)->())?
+    var getProductDetailsProductIdOnSuccessOnFailureReceivedInvocations: [(product_id: Int, onSuccess: ([String : Any])->(), onFailure: (String)->())] = []
+    var getProductDetailsProductIdOnSuccessOnFailureClosure: ((Int, @escaping ([String : Any])->(), @escaping (String)->()) -> Void)?
 
-    func getProductDetails() -> Bool {
-        getProductDetailsCallsCount += 1
-        return getProductDetailsClosure.map({ $0() }) ?? getProductDetailsReturnValue
+    func getProductDetails(product_id: Int, onSuccess: @escaping ([String : Any])->(), onFailure: @escaping (String)->()) {
+        getProductDetailsProductIdOnSuccessOnFailureCallsCount += 1
+        getProductDetailsProductIdOnSuccessOnFailureReceivedArguments = (product_id: product_id, onSuccess: onSuccess, onFailure: onFailure)
+        getProductDetailsProductIdOnSuccessOnFailureReceivedInvocations.append((product_id: product_id, onSuccess: onSuccess, onFailure: onFailure))
+        getProductDetailsProductIdOnSuccessOnFailureClosure?(product_id, onSuccess, onFailure)
     }
 
 }
@@ -135,16 +145,19 @@ class GetProductDetailsUseCaseMock: GetProductDetailsUseCase {
 
     //MARK: - execute
 
-    var executeCallsCount = 0
-    var executeCalled: Bool {
-        return executeCallsCount > 0
+    var executeProductIdOnSuccessOnFailureCallsCount = 0
+    var executeProductIdOnSuccessOnFailureCalled: Bool {
+        return executeProductIdOnSuccessOnFailureCallsCount > 0
     }
-    var executeReturnValue: Bool!
-    var executeClosure: (() -> Bool)?
+    var executeProductIdOnSuccessOnFailureReceivedArguments: (product_id: Int, onSuccess: ([String : Any])->(), onFailure: (String)->())?
+    var executeProductIdOnSuccessOnFailureReceivedInvocations: [(product_id: Int, onSuccess: ([String : Any])->(), onFailure: (String)->())] = []
+    var executeProductIdOnSuccessOnFailureClosure: ((Int, @escaping ([String : Any])->(), @escaping (String)->()) -> Void)?
 
-    func execute() -> Bool {
-        executeCallsCount += 1
-        return executeClosure.map({ $0() }) ?? executeReturnValue
+    func execute(product_id: Int, onSuccess: @escaping ([String : Any])->(), onFailure: @escaping (String)->()) {
+        executeProductIdOnSuccessOnFailureCallsCount += 1
+        executeProductIdOnSuccessOnFailureReceivedArguments = (product_id: product_id, onSuccess: onSuccess, onFailure: onFailure)
+        executeProductIdOnSuccessOnFailureReceivedInvocations.append((product_id: product_id, onSuccess: onSuccess, onFailure: onFailure))
+        executeProductIdOnSuccessOnFailureClosure?(product_id, onSuccess, onFailure)
     }
 
 }

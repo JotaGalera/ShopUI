@@ -41,7 +41,7 @@ class APIListMapperTests: XCTestCase {
         XCTAssertNotNil(dictionary)
         XCTAssertEqual("mock name", dictionary![0]["name"] as? String)
         XCTAssertEqual("mock brand", dictionary![0]["brand"] as? String)
-        XCTAssertEqual(10, dictionary![0]["price"] as? Int)
+        XCTAssertEqual(10, dictionary![0]["price"] as? Double)
         XCTAssertEqual("€", dictionary![0]["currency"] as? String)
         XCTAssertEqual("mock image", dictionary![0]["image"] as? String)
     }

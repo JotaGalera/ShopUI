@@ -188,13 +188,13 @@
 			path = Mapper;
 			sourceTree = "<group>";
 		};
-		89264E522561961E00A645DF /* DataSource */ = {
+		89264E522561961E00A645DF /* Mapper */ = {
 			isa = PBXGroup;
 			children = (
 				89331EB62561BB1700763223 /* APIListMapperTests.swift */,
 				89001FAC2583EC2D00C5107B /* APIDetailsMapperTests.swift */,
 			);
-			path = DataSource;
+			path = Mapper;
 			sourceTree = "<group>";
 		};
 		89387035254EE86600F0F6E1 /* BOs */ = {
@@ -225,7 +225,7 @@
 		895147BB255F4A81001DA941 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				89264E522561961E00A645DF /* DataSource */,
+				89264E522561961E00A645DF /* Mapper */,
 				895147BC255F4ADC001DA941 /* Repositories */,
 			);
 			path = Data;
@@ -302,8 +302,8 @@
 		896C37FA254DD87300A1A648 /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
-				8905F9172582CFDB00413DB9 /* ProductDetail */,
 				89387035254EE86600F0F6E1 /* BOs */,
+				8905F9172582CFDB00413DB9 /* ProductDetail */,
 				8957788C254EDED10047C36A /* ProductList */,
 			);
 			path = UseCases;
@@ -434,6 +434,7 @@
 			isa = PBXGroup;
 			children = (
 				895147CB255F5665001DA941 /* DataSource */,
+				89264E51256195FB00A645DF /* Mapper */,
 				895147BD255F4AE6001DA941 /* Repositories */,
 			);
 			path = Data;
@@ -442,7 +443,6 @@
 		89B8FD5C25608F6100D7CAAE /* API */ = {
 			isa = PBXGroup;
 			children = (
-				89264E51256195FB00A645DF /* Mapper */,
 				89B8FD5D25608F6C00D7CAAE /* APIData */,
 				895147CC255F578D001DA941 /* APIDataSource.swift */,
 			);

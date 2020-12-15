@@ -9,5 +9,5 @@ import Foundation
 
 protocol APIRepository: AutoMockable {
     func getProductList(onSuccess: @escaping ([[String : Any]])->(), onFailure: @escaping (String)->())
-    func getProductDetails()->Bool
+    func getProductDetails(product_id: Int, onSuccess: @escaping ([String : Any])->(), onFailure: @escaping (String)->())
 }

@@ -8,7 +8,7 @@
 import Foundation
 
 protocol GetProductDetailsUseCase: AutoMockable {
-    func execute()->Bool
+    func execute(product_id: Int, onSuccess: @escaping ([String : Any])->(), onFailure: @escaping (String)->())
 }
 
 class GetProductDetailsUseCaseImplementation: GetProductDetailsUseCase {
@@ -18,7 +18,7 @@ class GetProductDetailsUseCaseImplementation: GetProductDetailsUseCase {
         self.repository = repository
     }
     
-    func execute() -> Bool {
-        return repository.getProductDetails()
+    func execute(product_id: Int, onSuccess: @escaping ([String : Any])->(), onFailure: @escaping (String)->()) {
+        return repository.getProductDetails(product_id: product_id, onSuccess: onSuccess, onFailure: onFailure)
     }
 }

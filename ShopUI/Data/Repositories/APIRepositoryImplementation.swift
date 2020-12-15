@@ -21,15 +21,21 @@ class APIRepositoryImplementation: APIRepository {
     }
 
     func getProductList(onSuccess: @escaping ([[String : Any]])->(), onFailure: @escaping (String)->()) {
-        dataSource.getProductList(onSuccess: { response in
-            guard let dictionary = self.listMapper.convert(data: response) else { return }
+        dataSource.getProductList(onSuccess: { [weak self] response in
+            guard let self = self, let dictionary = self.listMapper.convert(data: response) else { return }
             onSuccess(dictionary)
         }, onFailure: { error in
             onFailure(error)
         })
     }
     
-    func getProductDetails()->Bool {
-        return dataSource.getProductDetails()
+    func getProductDetails(product_id: Int, onSuccess: @escaping ([String : Any])->(), onFailure: @escaping (String)->()) {
+        return dataSource.getProductDetails(product_id: product_id,
+        onSuccess: { [weak self] data in
+            guard let self = self, let dictionary = self.detailsMapper.convert(data: data) else { return }
+            onSuccess(dictionary)
+        }, onFailure: { error in
+            onFailure(error)
+        })
     }
 }

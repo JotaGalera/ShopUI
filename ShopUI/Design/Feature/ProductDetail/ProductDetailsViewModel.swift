@@ -11,7 +11,7 @@ protocol ProductDetailsViewModel: AutoMockable {
     func getProductDetails() 
 }
 
-class ProductDetailsViewModelImplementation: ProductDetailsViewModel {
+class ProductDetailsViewModelImplementation: ProductDetailsViewModel, ObservableObject {
     private var getProductDetailsUseCase: GetProductDetailsUseCase
     private var configurator: ProductDetailsConfigurator
     
@@ -21,6 +21,9 @@ class ProductDetailsViewModelImplementation: ProductDetailsViewModel {
     }
     
     func getProductDetails() {
-        _ = getProductDetailsUseCase.execute()
+        _ = getProductDetailsUseCase.execute(product_id: 1,
+        onSuccess: { result in
+            print("tucutucu: \(result)")
+        }, onFailure: { error in })
     }
 }

@@ -10,20 +10,18 @@ import Foundation
 
 protocol APIDataSource: AutoMockable {
     func getProductList(onSuccess: @escaping (Data)->(), onFailure: @escaping (String)->())
-    func getProductDetails()->Bool
+    func getProductDetails(product_id: Int, onSuccess: @escaping (Data)->(), onFailure: @escaping (String)->())
 }
 
 class APIDataSourceImplementation: APIDataSource {
-    private var getProductListURL: String
+    private var endPointAPI: String
     
-    init(getProductListURL: String){
-        self.getProductListURL = getProductListURL
+    init(endPointAPI: String){
+        self.endPointAPI = endPointAPI
     }
     
     func getProductList(onSuccess: @escaping (Data)->(), onFailure: @escaping (String)->()) {
-        let url = APIData.getProducts
-            
-        AF.request(url).validate().responseData { response in
+        AF.request(endPointAPI).validate().responseData { response in
             switch response.result {
                 case let .success(data):
                     onSuccess(data)
@@ -33,7 +31,14 @@ class APIDataSourceImplementation: APIDataSource {
         }
     }
     
-    func getProductDetails() -> Bool {
-        return true
+    func getProductDetails(product_id: Int, onSuccess: @escaping (Data)->(), onFailure: @escaping (String)->()) {
+        AF.request("\(endPointAPI)\(product_id)").validate().responseData { response in
+            switch response.result {
+                case let .success(data):
+                    onSuccess(data)
+                case let .failure(error):
+                    onFailure("\(error)")
+                }
+        }
     }
 }

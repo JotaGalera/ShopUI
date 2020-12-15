@@ -22,10 +22,8 @@ class ProductDetailsViewModelTests: XCTestCase {
     }
     
     func testThatGetProductDetailsUseCaseIsCalled_When_GetProductDetailsIsCalled() {
-        getProductDetailsUseCaseMock.executeReturnValue = true
-        
         _ = sut.getProductDetails()
 
-        XCTAssertEqual(1, getProductDetailsUseCaseMock.executeCallsCount)
+        XCTAssertEqual(1, getProductDetailsUseCaseMock.executeProductIdOnSuccessOnFailureCallsCount)
     }
 }

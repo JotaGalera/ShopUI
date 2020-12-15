@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct ProductDetailsView: View {
-    
+    @StateObject var productDetailsViewModel = ProductDetailsViewModelImplementation()
     let selectedProduct: Product 
     
     var body: some View {
         Text("\(selectedProduct.name)")
+            .onAppear {
+                productDetailsViewModel.getProductDetails()
+            }
     }
 }
 

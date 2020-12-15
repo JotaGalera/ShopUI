@@ -13,7 +13,7 @@ protocol ProductListConfigurator: AutoMockable {
 
 class ProductListConfiguratorImplementation: ProductListConfigurator {
     func configure() -> GetProductListUseCase {
-        let dataSource = APIDataSourceImplementation(getProductListURL: APIData.getProducts)
+        let dataSource = APIDataSourceImplementation(endPointAPI: APIData.getProducts)
         let listMapper = APIListMapperImplementation()
         let detailMapper = APIDetailsMapperImplementation()
         let repository = APIRepositoryImplementation(dataSource: dataSource, listMapper: listMapper, detailsMapper: detailMapper)

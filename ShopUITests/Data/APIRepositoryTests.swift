@@ -29,7 +29,7 @@ class APIRepositoryTests: XCTestCase {
         XCTAssertEqual(1, dataSourceMock.getProductListOnSuccessOnFailureCallsCount)
     }
     
-    func testThatMapperConvertIsCalled_When_GetProductListIsCalled() {
+    func testThatListMapperConvertIsCalled_When_GetProductListIsCalled() {
         let productListDataMock = [["name":"mock name","brand":"mock brand","price":10,"currency":"€","image":"mock image"]]
         listMapperMock.convertDataReturnValue = productListDataMock
         dataSourceMock.getProductListOnSuccessOnFailureClosure = { success, _ in
@@ -82,20 +82,73 @@ class APIRepositoryTests: XCTestCase {
         XCTAssertEqual(0, listMapperMock.convertDataCallsCount)
     }
     
-    func testThatTrueIsReturned_When_GetProductDetailsIsCalled() {
-        dataSourceMock.getProductDetailsReturnValue = true
+    func testThatDataSourceGetProductDetailsIsCalled_When_GetProductDetailsIsCalled() {
+        let productIDMock = 1
         
-        let result = sut.getProductDetails()
+        _ = sut.getProductDetails(product_id: productIDMock, onSuccess: { _ in }, onFailure: { _ in})
         
-        XCTAssertTrue(result)
+        XCTAssertEqual(1, dataSourceMock.getProductDetailsProductIdOnSuccessOnFailureCallsCount)
     }
     
-    func testThatAPIDataSourceIsCalled_When_GetproductDetailsIsCalled() {
-        dataSourceMock.getProductDetailsReturnValue = true
+    func testThatDetailMapperConvertIsCalled_When_GetProductDetailsIsCalled() {
+        let productDetailsDataMock = ["name":"mock name","color":"mock color","brand":"mock brand","original_price":1,"discount":1,"total_price":1,"currency":"€","images":["mock image"]] as [String : Any]
+        detailsMapperMock.convertDataReturnValue = productDetailsDataMock
+        dataSourceMock.getProductDetailsProductIdOnSuccessOnFailureClosure = { _, success, _ in
+            guard let dataMock = String( "{id: 1,name:mock name,color:mock color,brand:mock brand,original_price:1,discount:1,total_price:1,currency:€,images:[mock image]}").data(using: .utf8)
+            else { return }
+            success(dataMock)
+        }
         
-        _ = sut.getProductDetails()
+        _ = sut.getProductDetails(product_id: 1, onSuccess: { _ in }, onFailure: { _ in })
         
-        XCTAssertEqual(1, dataSourceMock.getProductDetailsCallsCount)
+        XCTAssertEqual(1, detailsMapperMock.convertDataCallsCount)
+    }
+    
+    func testThatADictionaryWithDataProductDetailsIsGetted_When_GetProductDetailsIsCalled() {
+        let productIDMock = 1
+        let productDetailsDataMock = ["name":"mock name","color":"mock color","brand":"mock brand","original_price":1.0,"discount":1.0,"total_price":1.0,"currency":"€","images":["mock image"]] as [String : Any]
+        let successExpectation = expectation(description: "success")
+        detailsMapperMock.convertDataReturnValue = productDetailsDataMock
+        dataSourceMock.getProductDetailsProductIdOnSuccessOnFailureClosure = { _, success, _ in
+            guard let dataMock = String( "{id: 1,name:mock name,color:mock color,brand:mock brand,original_price:1,discount:1,total_price:1,currency:€,images:[mock image]}").data(using: .utf8)
+            else { return }
+            success(dataMock)
+        }
+
+        _ = sut.getProductDetails(product_id: productIDMock,
+                                  onSuccess: { result in
+                                    XCTAssertEqual(productDetailsDataMock["name"] as! String, result["name"] as! String)
+                                    XCTAssertEqual(productDetailsDataMock["color"] as! String, result["color"] as! String)
+                                    XCTAssertEqual(productDetailsDataMock["brand"] as! String, result["brand"] as! String)
+                                    XCTAssertEqual(productDetailsDataMock["original_price"] as! Double, result["original_price"] as! Double)
+                                    XCTAssertEqual(productDetailsDataMock["discount"] as! Double, result["discount"] as! Double)
+                                    XCTAssertEqual(productDetailsDataMock["total_price"] as! Double, result["total_price"] as! Double)
+                                    XCTAssertEqual(productDetailsDataMock["currency"] as! String, result["currency"] as! String)
+                                    XCTAssertEqual(productDetailsDataMock["images"] as! [String], result["images"] as! [String])
+                                    successExpectation.fulfill()
+        }, onFailure: { _ in })
+        
+        waitForExpectations(timeout: 10)
+        XCTAssertEqual(1, detailsMapperMock.convertDataCallsCount)
+    }
+    
+    func testThatAnErrorMessageIsReceived_When_GetProductDetailsIsCalled() {
+        let productIDMock = 1
+        let failureExpectation = expectation(description: "failure")
+        dataSourceMock.getProductDetailsProductIdOnSuccessOnFailureClosure = { _, _, error in
+            error("Data could not be getted")
+        }
+        
+        _ = sut.getProductDetails(product_id: productIDMock,
+                                  onSuccess: { _ in },
+                                  onFailure: { error in
+                                    XCTAssertEqual("Data could not be getted", error)
+                                    failureExpectation.fulfill()
+                                  })
+        
+        waitForExpectations(timeout: 10)
+        XCTAssertEqual(0, listMapperMock.convertDataCallsCount)
     }
 }
+
 
