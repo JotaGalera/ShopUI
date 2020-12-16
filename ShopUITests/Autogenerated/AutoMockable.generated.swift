@@ -149,11 +149,11 @@ class GetProductDetailsUseCaseMock: GetProductDetailsUseCase {
     var executeProductIdOnSuccessOnFailureCalled: Bool {
         return executeProductIdOnSuccessOnFailureCallsCount > 0
     }
-    var executeProductIdOnSuccessOnFailureReceivedArguments: (product_id: Int, onSuccess: ([String : Any])->(), onFailure: (String)->())?
-    var executeProductIdOnSuccessOnFailureReceivedInvocations: [(product_id: Int, onSuccess: ([String : Any])->(), onFailure: (String)->())] = []
-    var executeProductIdOnSuccessOnFailureClosure: ((Int, @escaping ([String : Any])->(), @escaping (String)->()) -> Void)?
+    var executeProductIdOnSuccessOnFailureReceivedArguments: (product_id: Int, onSuccess: (Product)->(), onFailure: (String)->())?
+    var executeProductIdOnSuccessOnFailureReceivedInvocations: [(product_id: Int, onSuccess: (Product)->(), onFailure: (String)->())] = []
+    var executeProductIdOnSuccessOnFailureClosure: ((Int, @escaping (Product)->(), @escaping (String)->()) -> Void)?
 
-    func execute(product_id: Int, onSuccess: @escaping ([String : Any])->(), onFailure: @escaping (String)->()) {
+    func execute(product_id: Int, onSuccess: @escaping (Product)->(), onFailure: @escaping (String)->()) {
         executeProductIdOnSuccessOnFailureCallsCount += 1
         executeProductIdOnSuccessOnFailureReceivedArguments = (product_id: product_id, onSuccess: onSuccess, onFailure: onFailure)
         executeProductIdOnSuccessOnFailureReceivedInvocations.append((product_id: product_id, onSuccess: onSuccess, onFailure: onFailure))

@@ -12,7 +12,7 @@ import XCTest
 
 class ProductListViewTests: XCTestCase {
     func testProductListView() {
-        let productMock = Product(name: "nameMock", brand: "brandMock", price: 1, currency: "currencyMock", image: "image")
+        let productMock = Product(name: "nameMock", color: "", brand: "brandMock", price: 1.0, original_price: 0.0, discount: 0.0, total_price: 0.0, currency: "currencyMock", image: "imageMock", detailsImages: [""])
         let getProductListUseCaseMock = GetProductListUseCaseMock()
         let configuratorMock = ProductListConfiguratorMock()
         configuratorMock.configureReturnValue = getProductListUseCaseMock
