@@ -18,7 +18,8 @@ struct ProductListView: View {
             Divider()
             List{
                 ForEach(productListViewModel.productList.getProducts()) { product in
-                    ListCell(product: product)
+                    let index = productListViewModel.productList.getProductIndex(product) + 1
+                    ListCell(product: product, positionTapped: index)
                 }
             }
             .navigationBarTitle("")
@@ -29,6 +30,7 @@ struct ProductListView: View {
             }
         }
     }
+    
 }
 
 struct ProductListView_Previews: PreviewProvider {
@@ -39,9 +41,10 @@ struct ProductListView_Previews: PreviewProvider {
 
 struct ListCell: View {
     var product: Product
+    var positionTapped: Int
     
     var body: some View {
-        NavigationLink(destination: ProductDetailsView(selectedProduct: product)){
+        NavigationLink(destination: ProductDetailsView(selectedProduct: positionTapped)){
             HStack{
                 buildImageProduct(imageData: product.imageData)
                     .resizable()

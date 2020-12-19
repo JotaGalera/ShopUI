@@ -8,22 +8,23 @@
 import Foundation
 
 protocol ProductDetailsViewModel: AutoMockable {
-    func getProductDetails() 
+    func getProductDetails(product_id: Int)
 }
 
 class ProductDetailsViewModelImplementation: ProductDetailsViewModel, ObservableObject {
     private var getProductDetailsUseCase: GetProductDetailsUseCase
     private var configurator: ProductDetailsConfigurator
+    @Published var product: Product?
     
     init(configurator: ProductDetailsConfigurator = ProductDetailsConfiguratorImplementation()){
         self.configurator = configurator
         self.getProductDetailsUseCase = self.configurator.configure()
     }
     
-    func getProductDetails() {
-        _ = getProductDetailsUseCase.execute(product_id: 1,
+    func getProductDetails(product_id: Int) {
+        _ = getProductDetailsUseCase.execute(product_id: product_id,
         onSuccess: { result in
-            print("tucutucu: \(result)")
+            self.product = result
         }, onFailure: { error in })
     }
 }

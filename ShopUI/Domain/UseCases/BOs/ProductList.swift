@@ -11,6 +11,7 @@ protocol ProductList: AutoMockable {
     func getProducts() -> [Product]
     func setProducts(product: Product)
     func getImageData()
+    func getProductIndex(_ product: Product) -> Int
 }
 
 class ProductListImplementation: ProductList {
@@ -22,6 +23,11 @@ class ProductListImplementation: ProductList {
     
     func getProducts() -> [Product] {
         return products
+    }
+    
+    func getProductIndex(_ product: Product) -> Int {
+        guard let index = products.firstIndex(of: product) else { return 0 }
+        return index
     }
     
     func getImageData() {

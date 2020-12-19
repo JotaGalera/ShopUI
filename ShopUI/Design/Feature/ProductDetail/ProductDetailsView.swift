@@ -9,27 +9,18 @@ import SwiftUI
 
 struct ProductDetailsView: View {
     @StateObject var productDetailsViewModel = ProductDetailsViewModelImplementation()
-    let selectedProduct: Product 
+    let selectedProduct: Int
     
     var body: some View {
-        Text("\(selectedProduct.name)")
+        Text("\(productDetailsViewModel.product?.name ?? "Empty Value")")
             .onAppear {
-                productDetailsViewModel.getProductDetails()
+                productDetailsViewModel.getProductDetails(product_id: selectedProduct)
             }
     }
 }
 
 struct ProductDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ProductDetailsView(selectedProduct: Product(name: "name",
-                                                    color: "color",
-                                                    brand: "brand",
-                                                    price: 0.0,
-                                                    original_price: 0.0,
-                                                    discount: 0.0,
-                                                    total_price: 0.0,
-                                                    currency: "currency",
-                                                    image: "image",
-                                                    detailsImages: ["image"]))
+        ProductDetailsView(selectedProduct: 1)
     }
 }
