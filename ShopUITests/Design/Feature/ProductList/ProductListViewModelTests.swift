@@ -32,7 +32,7 @@ class ProductListViewModelTests: XCTestCase {
     
     func testThatProductListHasProducts_When_GetProductListIsCalled() {
         let successExpectation = expectation(description: "success")
-        let productMock = Product(name: "nameMock", color: "", brand: "brandMock", price: 1, original_price: 0.0, discount: 0.0, total_price: 0.0, currency: "currencyMock", image: "imageMock", detailsImages: [""])
+        let productMock = Product(name: "nameMock", color: "", brand: "brandMock", price: 1, originalPrice: 0.0, discount: 0.0, totalPrice: 0.0, currency: "currencyMock", image: "imageMock", detailsImages: [""])
         let listMock = ProductListImplementation()
         productListMock.getProductsReturnValue = listMock.getProducts()
         productListMock.setProducts(product: productMock)

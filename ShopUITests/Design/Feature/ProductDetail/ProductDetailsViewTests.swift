@@ -13,8 +13,9 @@ import XCTest
 
 class ProductDetailsViewTests: XCTestCase {
     func testProductDetailView() {
-        let productMock = Product(name: "nameMock", color: "colorMock", brand: "brandMock", price: 0.0, original_price: 1, discount: 1, total_price: 1, currency: "currencyMock", image: "", detailsImages: ["imageMock"])
-        let productDetailView = ProductDetailsView(selectedProduct: productMock)
+        let productMock: Product = Product(name: "nameMock", color: "colorMock", brand: "brandMock", price: 0.0, originalPrice: 0.0, discount: 0.0, totalPrice: 0.0, currency: "€", image: "imageMock", detailsImages: ["detailsImage"])
+        let productDetailsVMMock = ProductDetailsViewModelImplementation(product: productMock)
+        let productDetailView = ProductDetailsView(productDetailsViewModel: productDetailsVMMock, selectedProduct: 0).frame(width: 450, height: 600)
         
         let result = verifySnapshot(matching: productDetailView, as: .image)
         

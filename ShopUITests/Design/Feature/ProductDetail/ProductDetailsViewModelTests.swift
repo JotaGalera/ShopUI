@@ -22,7 +22,7 @@ class ProductDetailsViewModelTests: XCTestCase {
     }
     
     func testThatGetProductDetailsUseCaseIsCalled_When_GetProductDetailsIsCalled() {
-        _ = sut.getProductDetails()
+        _ = sut.getProductDetails(product_id: 1)
 
         XCTAssertEqual(1, getProductDetailsUseCaseMock.executeProductIdOnSuccessOnFailureCallsCount)
     }

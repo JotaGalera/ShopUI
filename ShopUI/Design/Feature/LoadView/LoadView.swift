@@ -41,7 +41,9 @@ struct UIShopAnimation: View {
                     selection: $selectionView ,
                     label: {}
                 )
+                .edgesIgnoringSafeArea(.all)
             }
+            
             .onAppear() {
                 productListViewModel.getProductList()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
@@ -60,8 +62,6 @@ struct LoadViewButtonStyle: ButtonStyle{
             .foregroundColor(configuration.isPressed ? .gray : .accentColor)
             .background(Image("loadViewTexture"))
             .cornerRadius(20)
-        
-            
     }
 }
 

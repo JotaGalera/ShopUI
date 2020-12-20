@@ -21,7 +21,7 @@ class ProductListConverterTests: XCTestCase {
     
     func testThatProductConverterIsCalled_When_ConvertIsCalled() {
         let productListDataMock = [["name":"nameMock","brand":"brandMock","price":1,"currency":"currencyMock","image":"imageMock"]]
-        let productMock = Product(name: "nameMock", color: "", brand: "brandMock", price: 1, original_price: 0.0, discount: 0.0, total_price: 0.0, currency: "currencyMock", image: "imageMock", detailsImages: [""])
+        let productMock = Product(name: "nameMock", color: "", brand: "brandMock", price: 1, originalPrice: 0.0, discount: 0.0, totalPrice: 0.0, currency: "currencyMock", image: "imageMock", detailsImages: [""])
         let productListMock = ProductListImplementation()
         productListMock.setProducts(product: productMock)
         productConverterMock.convertDataReturnValue = productMock
@@ -33,7 +33,7 @@ class ProductListConverterTests: XCTestCase {
     
     func testThatProductListConverterIsRerturningProductListImplementation_When_ConvertIsCalled() {
         let productListDataMock = [["name":"nameMock","brand":"brandMock","price":1,"currency":"currencyMock","image":"imageMock"]]
-        let productMock = Product(name: "nameMock", color: "", brand: "brandMock", price: 1, original_price: 0.0, discount: 0.0, total_price: 0.0, currency: "currencyMock", image: "imageMock", detailsImages: [""])
+        let productMock = Product(name: "nameMock", color: "", brand: "brandMock", price: 1, originalPrice: 0.0, discount: 0.0, totalPrice: 0.0, currency: "currencyMock", image: "imageMock", detailsImages: [""])
         let productListMock = ProductListImplementation()
         productListMock.setProducts(product: productMock)
         productConverterMock.convertDataReturnValue = productMock

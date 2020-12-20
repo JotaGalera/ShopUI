@@ -223,15 +223,117 @@ class ProductDetailsViewModelMock: ProductDetailsViewModel {
 
     //MARK: - getProductDetails
 
-    var getProductDetailsCallsCount = 0
-    var getProductDetailsCalled: Bool {
-        return getProductDetailsCallsCount > 0
+    var getProductDetailsProductIdCallsCount = 0
+    var getProductDetailsProductIdCalled: Bool {
+        return getProductDetailsProductIdCallsCount > 0
     }
-    var getProductDetailsClosure: (() -> Void)?
+    var getProductDetailsProductIdReceivedProduct_id: Int?
+    var getProductDetailsProductIdReceivedInvocations: [Int] = []
+    var getProductDetailsProductIdClosure: ((Int) -> Void)?
 
-    func getProductDetails() {
-        getProductDetailsCallsCount += 1
-        getProductDetailsClosure?()
+    func getProductDetails(product_id: Int) {
+        getProductDetailsProductIdCallsCount += 1
+        getProductDetailsProductIdReceivedProduct_id = product_id
+        getProductDetailsProductIdReceivedInvocations.append(product_id)
+        getProductDetailsProductIdClosure?(product_id)
+    }
+
+    //MARK: - getProductName
+
+    var getProductNameCallsCount = 0
+    var getProductNameCalled: Bool {
+        return getProductNameCallsCount > 0
+    }
+    var getProductNameReturnValue: String!
+    var getProductNameClosure: (() -> String)?
+
+    func getProductName() -> String {
+        getProductNameCallsCount += 1
+        return getProductNameClosure.map({ $0() }) ?? getProductNameReturnValue
+    }
+
+    //MARK: - getProductBrand
+
+    var getProductBrandCallsCount = 0
+    var getProductBrandCalled: Bool {
+        return getProductBrandCallsCount > 0
+    }
+    var getProductBrandReturnValue: String!
+    var getProductBrandClosure: (() -> String)?
+
+    func getProductBrand() -> String {
+        getProductBrandCallsCount += 1
+        return getProductBrandClosure.map({ $0() }) ?? getProductBrandReturnValue
+    }
+
+    //MARK: - getProductColor
+
+    var getProductColorCallsCount = 0
+    var getProductColorCalled: Bool {
+        return getProductColorCallsCount > 0
+    }
+    var getProductColorReturnValue: String!
+    var getProductColorClosure: (() -> String)?
+
+    func getProductColor() -> String {
+        getProductColorCallsCount += 1
+        return getProductColorClosure.map({ $0() }) ?? getProductColorReturnValue
+    }
+
+    //MARK: - getProductOriginalPrice
+
+    var getProductOriginalPriceCallsCount = 0
+    var getProductOriginalPriceCalled: Bool {
+        return getProductOriginalPriceCallsCount > 0
+    }
+    var getProductOriginalPriceReturnValue: String!
+    var getProductOriginalPriceClosure: (() -> String)?
+
+    func getProductOriginalPrice() -> String {
+        getProductOriginalPriceCallsCount += 1
+        return getProductOriginalPriceClosure.map({ $0() }) ?? getProductOriginalPriceReturnValue
+    }
+
+    //MARK: - getProductDiscountPrice
+
+    var getProductDiscountPriceCallsCount = 0
+    var getProductDiscountPriceCalled: Bool {
+        return getProductDiscountPriceCallsCount > 0
+    }
+    var getProductDiscountPriceReturnValue: String!
+    var getProductDiscountPriceClosure: (() -> String)?
+
+    func getProductDiscountPrice() -> String {
+        getProductDiscountPriceCallsCount += 1
+        return getProductDiscountPriceClosure.map({ $0() }) ?? getProductDiscountPriceReturnValue
+    }
+
+    //MARK: - getProductTotalPrice
+
+    var getProductTotalPriceCallsCount = 0
+    var getProductTotalPriceCalled: Bool {
+        return getProductTotalPriceCallsCount > 0
+    }
+    var getProductTotalPriceReturnValue: String!
+    var getProductTotalPriceClosure: (() -> String)?
+
+    func getProductTotalPrice() -> String {
+        getProductTotalPriceCallsCount += 1
+        return getProductTotalPriceClosure.map({ $0() }) ?? getProductTotalPriceReturnValue
+    }
+
+    //MARK: - getProductDetailsImages
+
+    var getProductDetailsImagesCallsCount = 0
+    var getProductDetailsImagesCalled: Bool {
+        return getProductDetailsImagesCallsCount > 0
+    }
+    var getProductDetailsImagesReturnValue: Data?
+    var getProductDetailsImagesClosure: (() -> Data?)?
+
+    func getProductDetailsImages() -> Data? {
+        getProductDetailsImagesCallsCount += 1
+        return getProductDetailsImagesClosure.map({ $0() }) ?? getProductDetailsImagesReturnValue
     }
 
 }
@@ -279,6 +381,24 @@ class ProductListMock: ProductList {
     func getImageData() {
         getImageDataCallsCount += 1
         getImageDataClosure?()
+    }
+
+    //MARK: - getProductIndex
+
+    var getProductIndexCallsCount = 0
+    var getProductIndexCalled: Bool {
+        return getProductIndexCallsCount > 0
+    }
+    var getProductIndexReceivedProduct: Product?
+    var getProductIndexReceivedInvocations: [Product] = []
+    var getProductIndexReturnValue: Int!
+    var getProductIndexClosure: ((Product) -> Int)?
+
+    func getProductIndex(_ product: Product) -> Int {
+        getProductIndexCallsCount += 1
+        getProductIndexReceivedProduct = product
+        getProductIndexReceivedInvocations.append(product)
+        return getProductIndexClosure.map({ $0(product) }) ?? getProductIndexReturnValue
     }
 
 }

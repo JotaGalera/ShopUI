@@ -23,7 +23,7 @@ class GetProductDetailsUseCaseTests: XCTestCase {
     func testThatRepositoryIsCalled_When_ExecuteIsCalled() {
         let successExpectation = expectation(description: "success")
         let productIDMock = 1
-        converterMock.convertDataReturnValue = Product(name: "mock name", color: "mock color", brand: "mock brand", price: 0.0, original_price: 1.0, discount: 1.0, total_price: 1.0, currency: "€", image: "", detailsImages: ["mock image"])
+        converterMock.convertDataReturnValue = Product(name: "mock name", color: "mock color", brand: "mock brand", price: 0.0, originalPrice: 1.0, discount: 1.0, totalPrice: 1.0, currency: "€", image: "", detailsImages: ["mock image"])
         repositoryMock.getProductDetailsProductIdOnSuccessOnFailureClosure = { _, success, _ in
             success(["name":"mock name","color":"mock color","brand":"mock brand","original_price":1.0,"discount":1.0,"total_price":1.0,"currency":"€","images":["mock image"]] as [String : Any])
         }
@@ -41,7 +41,7 @@ class GetProductDetailsUseCaseTests: XCTestCase {
     func testThatConverterIsCalled_When_ExecuteIsCalled() {
         let successExpectation = expectation(description: "success")
         let productIDMock = 1
-        converterMock.convertDataReturnValue = Product(name: "mock name", color: "mock color", brand: "mock brand", price: 0.0, original_price: 1.0, discount: 1.0, total_price: 1.0, currency: "€", image: "", detailsImages: ["mock image"])
+        converterMock.convertDataReturnValue = Product(name: "mock name", color: "mock color", brand: "mock brand", price: 0.0, originalPrice: 1.0, discount: 1.0, totalPrice: 1.0, currency: "€", image: "", detailsImages: ["mock image"])
         repositoryMock.getProductDetailsProductIdOnSuccessOnFailureClosure = { _, success, _ in
             success(["name":"mock name","color":"mock color","brand":"mock brand","original_price":1.0,"discount":1.0,"total_price":1.0,"currency":"€","images":["mock image"]] as [String : Any])
         }

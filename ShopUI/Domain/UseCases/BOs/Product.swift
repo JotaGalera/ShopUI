@@ -14,13 +14,14 @@ struct Product: Identifiable {
     var color: String
     var brand: String
     var price: Double
-    var original_price: Double
+    var originalPrice: Double
     var discount: Double
-    var total_price: Double
+    var totalPrice: Double
     var currency: String
     var image: String
     var detailsImages: [String]
     var imageData: Data?
+    var detailsImagesData: [Data]?
 }
 
 extension Product: Equatable {
@@ -29,9 +30,9 @@ extension Product: Equatable {
                 lhs.color == rhs.color &&
                 lhs.brand == rhs.brand &&
                 lhs.price == rhs.price &&
-                lhs.original_price == rhs.original_price &&
+                lhs.originalPrice == rhs.originalPrice &&
                 lhs.discount == rhs.discount &&
-                lhs.total_price == rhs.total_price &&
+                lhs.totalPrice == rhs.totalPrice &&
                 lhs.currency == rhs.currency &&
                 lhs.image == rhs.image &&
                 lhs.detailsImages == rhs.detailsImages

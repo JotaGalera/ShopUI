@@ -44,7 +44,7 @@ struct ListCell: View {
     var positionTapped: Int
     
     var body: some View {
-        NavigationLink(destination: ProductDetailsView(selectedProduct: positionTapped)){
+        NavigationLink(destination: ProductDetailsView(productDetailsViewModel: ProductDetailsViewModelImplementation(), selectedProduct: positionTapped)){
             HStack{
                 buildImageProduct(imageData: product.imageData)
                     .resizable()
