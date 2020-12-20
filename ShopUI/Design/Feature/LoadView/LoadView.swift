@@ -2,7 +2,7 @@ import SwiftUI
 
 struct LoadView : View {
     var body: some View {
-        UIShopAnimation().padding(20)
+        UIShopAnimation()
     }
 }
 
@@ -41,9 +41,7 @@ struct UIShopAnimation: View {
                     selection: $selectionView ,
                     label: {}
                 )
-                .edgesIgnoringSafeArea(.all)
             }
-            
             .onAppear() {
                 productListViewModel.getProductList()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 4) {

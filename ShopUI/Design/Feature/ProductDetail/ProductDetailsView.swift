@@ -8,32 +8,35 @@
 import SwiftUI
 
 struct ProductDetailsView: View {
-    @ObservedObject var productDetailsViewModel: ProductDetailsViewModelImplementation
+    @StateObject var productDetailsViewModel: ProductDetailsViewModelImplementation
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     let selectedProduct: Int
     
     init(productDetailsViewModel: ProductDetailsViewModelImplementation, selectedProduct: Int) {
-        self.productDetailsViewModel = productDetailsViewModel
+        _productDetailsViewModel = StateObject(wrappedValue: productDetailsViewModel)
         self.selectedProduct = selectedProduct
-        UINavigationBar.appearance().backgroundColor = .white
     }
     
     var body: some View {
-        VStack{
+        VStack(alignment: .leading) {
             buildImageProduct(imageData: productDetailsViewModel.getProductDetailsImages())
                 .resizable()
-                .frame(width: 300, height: 300)
+                .frame(minWidth: 0,
+                       maxWidth: UIScreen.screenWidth,
+                       minHeight: 0,
+                       maxHeight: UIScreen.screenWidth)
+            Spacer()
+            
+            Spacer()
             Text(productDetailsViewModel.getProductName())
             Text(productDetailsViewModel.getProductBrand())
             Text(productDetailsViewModel.getProductColor())
             Text(productDetailsViewModel.getProductOriginalPrice())
             Text(productDetailsViewModel.getProductDiscountPrice())
-            Text(productDetailsViewModel.getProductTotalPrice())
-                .edgesIgnoringSafeArea(.all)
+            
+            PriceSection(price: productDetailsViewModel.getProductTotalPrice(), currency: productDetailsViewModel.getProductCurrency())
         }
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: customBackButton(presentationMode: _presentationMode))
-        .navigationBarTitle("Names")
+        .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             productDetailsViewModel.getProductDetails(product_id: selectedProduct)
         }
@@ -50,19 +53,26 @@ struct ProductDetailsView: View {
     }
 }
 
-struct customBackButton: View {
-    @Environment var presentationMode: Binding<PresentationMode>
+struct PriceSection: View {
+    var price: String
+    var currency: String
     
     var body: some View {
-        HStack {
-            Button(action: {
-                presentationMode.wrappedValue.dismiss()
-            }) {
-                Image(systemName: "chevron.backward")
-                    .font(.largeTitle)
-                Text("Product List")
-            }.foregroundColor(.black)
+        
+        VStack(alignment: .leading) {
+            HStack(alignment: .center) {
+                Text("\(price) \(currency)" )
+                    .font(.headline)
+            }
+            Text("TOTAL PLAYABLE")
+                .font(.subheadline)
+                .foregroundColor(Color.gray)
         }
+        
+        
+        .frame(width: UIScreen.screenWidth, height: 100)
+        .background(Color.black.opacity(0.1))
+        .cornerRadius(25)
     }
 }
 

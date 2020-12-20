@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct ProductListView: View {
-    @StateObject var productListViewModel = ProductListViewModelImplementation()
+    @ObservedObject var productListViewModel = ProductListViewModelImplementation()
+    
     
     var body: some View {
         VStack {
@@ -22,7 +23,7 @@ struct ProductListView: View {
                     ListCell(product: product, positionTapped: index)
                 }
             }
-            .navigationBarTitle("")
+            .navigationBarTitle("Product List")
             .navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
             .onAppear(){
@@ -33,27 +34,27 @@ struct ProductListView: View {
     
 }
 
-struct ProductListView_Previews: PreviewProvider {
-    static var previews: some View {
-        ProductListView()
-    }
-}
-
 struct ListCell: View {
     var product: Product
     var positionTapped: Int
+    @State var isPresentedFullScreen = true
     
     var body: some View {
         NavigationLink(destination: ProductDetailsView(productDetailsViewModel: ProductDetailsViewModelImplementation(), selectedProduct: positionTapped)){
             HStack{
                 buildImageProduct(imageData: product.imageData)
                     .resizable()
+                    .clipShape(Circle())
+                    .overlay(Circle().stroke(Color.black, lineWidth: 4))
                     .frame(width: 50, height: 50)
+                    
                 VStack(alignment: .leading) {
                     Text("\(product.name)")
+                        .font(.headline)
                     Text("\(product.brand)")
                         .font(.subheadline)
-                }
+                }.padding(.leading, 8)
+                .padding(.init(top: 12, leading: 0, bottom: 12, trailing: 0))
             }
         }
     }
@@ -65,5 +66,11 @@ struct ListCell: View {
         }else{
             return Image(systemName: "photo.fill")
         }
+    }
+}
+
+struct ProductListView_Previews: PreviewProvider {
+    static var previews: some View {
+        ProductListView(productListViewModel: ProductListViewModelImplementation())
     }
 }

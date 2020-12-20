@@ -12,6 +12,7 @@ protocol ProductDetailsViewModel: AutoMockable {
     func getProductName() -> String
     func getProductBrand() -> String
     func getProductColor() -> String
+    func getProductCurrency() -> String
     func getProductOriginalPrice() -> String
     func getProductDiscountPrice() -> String
     func getProductTotalPrice() -> String
@@ -62,6 +63,10 @@ class ProductDetailsViewModelImplementation: ProductDetailsViewModel, Observable
     
     func getProductColor() -> String {
         return product?.color ?? ""
+    }
+    
+    func getProductCurrency() -> String {
+        return product?.currency ?? ""
     }
     
     func getProductOriginalPrice() -> String {

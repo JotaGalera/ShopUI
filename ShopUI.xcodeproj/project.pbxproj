@@ -38,6 +38,7 @@
 		896FB781254A1CC700A55F12 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 896FB780254A1CC700A55F12 /* Assets.xcassets */; };
 		896FB784254A1CC700A55F12 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 896FB783254A1CC700A55F12 /* Preview Assets.xcassets */; };
 		896FB79A254A1CC700A55F12 /* ShopUIUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896FB799254A1CC700A55F12 /* ShopUIUITests.swift */; };
+		8975C7E5258FF07300260F7A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8975C7E4258FF07300260F7A /* Extensions.swift */; };
 		897BA5212551F05300D87FE0 /* ProductListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897BA5202551F05300D87FE0 /* ProductListViewModel.swift */; };
 		897BA5282551F09E00D87FE0 /* ProductListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897BA5272551F09E00D87FE0 /* ProductListViewModelTests.swift */; };
 		897BA5342551F5ED00D87FE0 /* ProductListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897BA5332551F5ED00D87FE0 /* ProductListView.swift */; };
@@ -108,6 +109,7 @@
 		896FB795254A1CC700A55F12 /* ShopUIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShopUIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		896FB799254A1CC700A55F12 /* ShopUIUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopUIUITests.swift; sourceTree = "<group>"; };
 		896FB79B254A1CC700A55F12 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8975C7E4258FF07300260F7A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		897BA5202551F05300D87FE0 /* ProductListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListViewModel.swift; sourceTree = "<group>"; };
 		897BA5272551F09E00D87FE0 /* ProductListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListViewModelTests.swift; sourceTree = "<group>"; };
 		897BA5332551F5ED00D87FE0 /* ProductListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListView.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				89122766254DF72C0004E105 /* AutoMockable.swift */,
+				8975C7E4258FF07300260F7A /* Extensions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -780,6 +783,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8975C7E5258FF07300260F7A /* Extensions.swift in Sources */,
 				89F06881257EE0A40029BE5C /* ProductDetailsView.swift in Sources */,
 				89FB78142576F8CC00BA44B3 /* LoadView.swift in Sources */,
 				89B8FD5F25608FA200D7CAAE /* APIData.swift in Sources */,

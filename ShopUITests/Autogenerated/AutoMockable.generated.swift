@@ -280,6 +280,20 @@ class ProductDetailsViewModelMock: ProductDetailsViewModel {
         return getProductColorClosure.map({ $0() }) ?? getProductColorReturnValue
     }
 
+    //MARK: - getProductCurrency
+
+    var getProductCurrencyCallsCount = 0
+    var getProductCurrencyCalled: Bool {
+        return getProductCurrencyCallsCount > 0
+    }
+    var getProductCurrencyReturnValue: String!
+    var getProductCurrencyClosure: (() -> String)?
+
+    func getProductCurrency() -> String {
+        getProductCurrencyCallsCount += 1
+        return getProductCurrencyClosure.map({ $0() }) ?? getProductCurrencyReturnValue
+    }
+
     //MARK: - getProductOriginalPrice
 
     var getProductOriginalPriceCallsCount = 0
