@@ -16,14 +16,13 @@ protocol ProductDetailsViewModel: AutoMockable {
     func getProductOriginalPrice() -> String
     func getProductDiscountPrice() -> String
     func getProductTotalPrice() -> String
-    func getProductDetailsImages() -> Data?
+    func getProductDetailsImages() -> [Data]?
 }
 
 class ProductDetailsViewModelImplementation: ProductDetailsViewModel, ObservableObject{
     private var getProductDetailsUseCase: GetProductDetailsUseCase
     private var configurator: ProductDetailsConfigurator
     @Published var product: Product?
-    var arrayImagesData: [Data]? = []
     
     init(product: Product? = nil, configurator: ProductDetailsConfigurator = ProductDetailsConfiguratorImplementation()){
         self.product = product
@@ -40,8 +39,8 @@ class ProductDetailsViewModelImplementation: ProductDetailsViewModel, Observable
     }
     
     private func getDetailsImages() {
+        var arrayImagesData: [Data]? = []
         guard let detailsImagesCount = product?.detailsImages.count else { return }
-    
         for index in 0..<detailsImagesCount {
             guard let detailsImage = product?.detailsImages[index],
                   let imageURL = URL(string: detailsImage)
@@ -49,6 +48,7 @@ class ProductDetailsViewModelImplementation: ProductDetailsViewModel, Observable
             guard let imageData = try? Data(contentsOf: imageURL) else { return }
             arrayImagesData?.append(imageData)
         }
+        product?.setDetailsImagesData(imagesData: arrayImagesData)
     }
     
     // MARK: - Exposing BO methods -
@@ -84,8 +84,8 @@ class ProductDetailsViewModelImplementation: ProductDetailsViewModel, Observable
         return String(totalPrice)
     }
     
-    func getProductDetailsImages() -> Data? {
-        return arrayImagesData?.first
+    func getProductDetailsImages() -> [Data]? {
+        return product?.detailsImagesData
     }
     
     

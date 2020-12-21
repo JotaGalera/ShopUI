@@ -22,6 +22,10 @@ struct Product: Identifiable {
     var detailsImages: [String]
     var imageData: Data?
     var detailsImagesData: [Data]?
+    
+    mutating func setDetailsImagesData(imagesData: [Data]?){
+        detailsImagesData = imagesData
+    }
 }
 
 extension Product: Equatable {
