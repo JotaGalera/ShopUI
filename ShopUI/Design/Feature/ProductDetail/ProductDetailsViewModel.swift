@@ -17,6 +17,7 @@ protocol ProductDetailsViewModel: AutoMockable {
     func getProductDiscountPrice() -> String
     func getProductTotalPrice() -> String
     func getProductDetailsImages() -> [Data]?
+    func getNumberOfDetailsImages() -> Int
 }
 
 class ProductDetailsViewModelImplementation: ProductDetailsViewModel, ObservableObject{
@@ -33,12 +34,14 @@ class ProductDetailsViewModelImplementation: ProductDetailsViewModel, Observable
     func getProductDetails(product_id: Int) {
         _ = getProductDetailsUseCase.execute(product_id: product_id,
         onSuccess: { result in
-            self.product = result
-            self.getDetailsImages()
+            DispatchQueue.main.async {
+                self.product = result
+                self.getDetailsImages()
+            }
         }, onFailure: { error in })
     }
     
-    private func getDetailsImages() {
+    func getDetailsImages() {
         var arrayImagesData: [Data]? = []
         guard let detailsImagesCount = product?.detailsImages.count else { return }
         for index in 0..<detailsImagesCount {
@@ -88,5 +91,9 @@ class ProductDetailsViewModelImplementation: ProductDetailsViewModel, Observable
         return product?.detailsImagesData
     }
     
+    func getNumberOfDetailsImages() -> Int {
+        guard let imagesData = product?.detailsImagesData else { return 0 }
+        return imagesData.count
+    }
     
 }

@@ -18,29 +18,28 @@ struct ProductDetailsView: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading) {
-            buildImageProduct(imageData: productDetailsViewModel.getProductDetailsImages())
-                .resizable()
-                .frame(minWidth: 0,
-                       maxWidth: UIScreen.screenWidth,
-                       minHeight: 0,
-                       maxHeight: UIScreen.screenWidth)
-            Spacer()
-            
-            Spacer()
-            Text(productDetailsViewModel.getProductName())
-            Text(productDetailsViewModel.getProductBrand())
-            Text(productDetailsViewModel.getProductColor())
-            Text(productDetailsViewModel.getProductOriginalPrice())
-            Text(productDetailsViewModel.getProductDiscountPrice())
-            
-            PriceSection(price: productDetailsViewModel.getProductTotalPrice(), currency: productDetailsViewModel.getProductCurrency())
+        ZStack {
+            VStack{
+                TabView {
+                    ForEach(0..<3) { index in
+                        buildImageProduct(imageData: productDetailsViewModel.product?.detailsImagesData?[index])
+                            .resizable()
+                            .frame(width: UIScreen.screenWidth,
+                                   height: UIScreen.screenWidth,
+                                   alignment: .center)
+                    }
+                }.tabViewStyle(PageTabViewStyle())
+                .frame(width: UIScreen.screenWidth,
+                       height: UIScreen.screenWidth+3)
+                ProductDescription()
+            }
         }
-        .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             productDetailsViewModel.getProductDetails(product_id: selectedProduct)
         }
-        
+        .environmentObject(productDetailsViewModel)
+        .ignoresSafeArea(edges: .bottom)
+        .navigationBarTitleDisplayMode(.inline)
     }
     
     func buildImageProduct(imageData: Data?) -> Image {
@@ -53,26 +52,59 @@ struct ProductDetailsView: View {
     }
 }
 
-struct PriceSection: View {
-    var price: String
-    var currency: String
+struct ProductDescription: View {
+    var body: some View {
+        ZStack {
+            HStack() {
+                ProductInfoSection()
+                Spacer()
+                PriceSection()
+            }
+            .frame(width: UIScreen.screenWidth,
+                   height: UIScreen.screenWidth - UIScreen.screenWidth/20,
+                   alignment: .top)
+            .background(Color.white)
+            .cornerRadius(25.0)
+            .shadow(color: Color.black, radius: 10, x: 0, y: 0)
+        }
+    }
+}
+
+struct ProductInfoSection: View {
+    @EnvironmentObject var productDetailsViewModel: ProductDetailsViewModelImplementation
     
     var body: some View {
-        
         VStack(alignment: .leading) {
-            HStack(alignment: .center) {
-                Text("\(price) \(currency)" )
-                    .font(.headline)
-            }
-            Text("TOTAL PLAYABLE")
+            Text("\(productDetailsViewModel.getProductName())")
+                .padding(.bottom, 3)
+            Text("\(productDetailsViewModel.getProductBrand())")
                 .font(.subheadline)
                 .foregroundColor(Color.gray)
+                .padding(.bottom, 3)
         }
-        
-        
-        .frame(width: UIScreen.screenWidth, height: 100)
-        .background(Color.black.opacity(0.1))
-        .cornerRadius(25)
+        .padding()
+    }
+}
+
+struct PriceSection: View {
+    @EnvironmentObject var productDetailsViewModel: ProductDetailsViewModelImplementation
+    
+    var body: some View {
+        VStack {
+            Text("\(productDetailsViewModel.getProductCurrency()) \(productDetailsViewModel.getProductTotalPrice())" )
+                .font(.headline)
+                .padding(.bottom, 1)
+            Text("\(productDetailsViewModel.getProductCurrency()) \(productDetailsViewModel.getProductOriginalPrice())")
+                .strikethrough(color: Color.gray)
+                .font(.subheadline)
+                .foregroundColor(Color.gray)
+                .padding(.bottom, 1)
+            Text("-\(productDetailsViewModel.getProductDiscountPrice())%")
+                .font(.subheadline)
+                .foregroundColor(Color.red)
+                .padding(.bottom, 1)
+        }
+        .padding()
     }
 }
 
