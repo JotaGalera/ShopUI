@@ -19,19 +19,21 @@ struct ProductDetailsView: View {
     
     var body: some View {
         ZStack {
-            VStack{
-                TabView {
-                    ForEach(0..<3) { index in
-                        buildImageProduct(imageData: productDetailsViewModel.product?.detailsImagesData?[index])
-                            .resizable()
-                            .frame(width: UIScreen.screenWidth,
-                                   height: UIScreen.screenWidth,
-                                   alignment: .center)
-                    }
-                }.tabViewStyle(PageTabViewStyle())
-                .frame(width: UIScreen.screenWidth,
-                       height: UIScreen.screenWidth+3)
+            TabView {
+                ForEach(0..<3) { index in
+                    buildImageProduct(imageData: productDetailsViewModel.product?.detailsImagesData?[index])
+                        .resizable()
+                        .frame(width: UIScreen.screenWidth,
+                               height: UIScreen.screenWidth,
+                               alignment: .center)
+                }
+            }.tabViewStyle(PageTabViewStyle())
+            .frame(width: UIScreen.screenWidth,
+                   height: UIScreen.screenWidth+3)
+            .position(x: UIScreen.screenWidth/2 ,y: UIScreen.screenWidth/2)
+            ScrollView(.vertical){
                 ProductDescription()
+                    .position(x: UIScreen.screenWidth/2,y: UIScreen.screenWidth*1.4)
             }
         }
         .onAppear {
@@ -55,13 +57,18 @@ struct ProductDetailsView: View {
 struct ProductDescription: View {
     var body: some View {
         ZStack {
-            HStack() {
-                ProductInfoSection()
-                Spacer()
-                PriceSection()
+            VStack{
+                HStack() {
+                    ProductInfoSection()
+                    Spacer()
+                    PriceSection()
+                }
+                Divider().frame(width: UIScreen.screenWidth-40)
+                AboutTheProduct()
+                AddToCartSection()
             }
             .frame(width: UIScreen.screenWidth,
-                   height: UIScreen.screenWidth - UIScreen.screenWidth/20,
+                   height: UIScreen.screenWidth*1.3,
                    alignment: .top)
             .background(Color.white)
             .cornerRadius(25.0)
@@ -105,6 +112,51 @@ struct PriceSection: View {
                 .padding(.bottom, 1)
         }
         .padding()
+    }
+}
+
+
+struct AboutTheProduct: View {
+    @State var expanded: Bool = true
+    
+    var body: some View {
+        DisclosureGroup(
+            isExpanded: $expanded,
+            content: {
+                HStack(alignment: .top) {
+                    VStack(alignment: .leading) {
+                        Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.")
+                            .padding()
+                    }
+                }
+            },
+            label: {
+                Text("PRODUCT INFO")
+                .padding()
+                .font(.subheadline)
+                .foregroundColor(Color.black) }
+        ).padding()
+    }
+}
+
+struct AddToCartSection: View {
+    var body: some View {
+        Button(action: { print("addToCart tapped") }, label: {
+            Text("Add to cart")
+                .font(.headline)
+                .foregroundColor(.white)
+                .padding()
+            Spacer()
+            Image(systemName: "cart.circle.fill" )
+                .resizable()
+                .foregroundColor(.white)
+                .frame(width: 50, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                .padding()
+        })
+        .frame(width: UIScreen.screenWidth-UIScreen.screenWidth/3, height: 75)
+        .background(Color.black)
+        .cornerRadius(25.0)
+        .shadow(color: Color.black, radius: 2, x: 0, y: 0)
     }
 }
 
