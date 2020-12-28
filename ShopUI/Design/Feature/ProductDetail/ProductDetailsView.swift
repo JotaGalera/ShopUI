@@ -18,7 +18,7 @@ struct ProductDetailsView: View {
     }
     
     var body: some View {
-        ZStack {
+        VStack {
             TabView {
                 ForEach(0..<3) { index in
                     buildImageProduct(imageData: productDetailsViewModel.product?.detailsImagesData?[index])
@@ -27,13 +27,19 @@ struct ProductDetailsView: View {
                                height: UIScreen.screenWidth,
                                alignment: .center)
                 }
-            }.tabViewStyle(PageTabViewStyle())
+            }
+            .background(Color.clear
+            )
+            .shadow(color: Color.black, radius: 10, x: 0, y: 0)
+            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
             .frame(width: UIScreen.screenWidth,
                    height: UIScreen.screenWidth+3)
             .position(x: UIScreen.screenWidth/2 ,y: UIScreen.screenWidth/2)
+            .cornerRadius(25.0)
+            .shadow(color: Color.black, radius: 10, x: 0, y: 0)
             ScrollView(.vertical){
                 ProductDescription()
-                    .position(x: UIScreen.screenWidth/2,y: UIScreen.screenWidth*1.4)
+                    
             }
         }
         .onAppear {
@@ -70,9 +76,6 @@ struct ProductDescription: View {
             .frame(width: UIScreen.screenWidth,
                    height: UIScreen.screenWidth*1.3,
                    alignment: .top)
-            .background(Color.white)
-            .cornerRadius(25.0)
-            .shadow(color: Color.black, radius: 10, x: 0, y: 0)
         }
     }
 }
