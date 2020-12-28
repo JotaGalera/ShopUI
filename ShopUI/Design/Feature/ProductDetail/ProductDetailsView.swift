@@ -19,27 +19,9 @@ struct ProductDetailsView: View {
     
     var body: some View {
         VStack {
-            TabView {
-                ForEach(0..<3) { index in
-                    buildImageProduct(imageData: productDetailsViewModel.product?.detailsImagesData?[index])
-                        .resizable()
-                        .frame(width: UIScreen.screenWidth,
-                               height: UIScreen.screenWidth,
-                               alignment: .center)
-                }
-            }
-            .background(Color.clear
-            )
-            .shadow(color: Color.black, radius: 10, x: 0, y: 0)
-            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
-            .frame(width: UIScreen.screenWidth,
-                   height: UIScreen.screenWidth+3)
-            .position(x: UIScreen.screenWidth/2 ,y: UIScreen.screenWidth/2)
-            .cornerRadius(25.0)
-            .shadow(color: Color.black, radius: 10, x: 0, y: 0)
+            ProductImagesCarousel()
             ScrollView(.vertical){
                 ProductDescription()
-                    
             }
         }
         .onAppear {
@@ -48,6 +30,24 @@ struct ProductDetailsView: View {
         .environmentObject(productDetailsViewModel)
         .ignoresSafeArea(edges: .bottom)
         .navigationBarTitleDisplayMode(.inline)
+    }
+}
+
+struct ProductImagesCarousel: View {
+    @EnvironmentObject var productDetailsViewModel: ProductDetailsViewModelImplementation
+    
+    var body: some View {
+        TabView {
+            ForEach(0..<3) { index in
+                buildImageProduct(imageData: productDetailsViewModel.product?.detailsImagesData?[index])
+                    .resizable()
+            }
+        }
+        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
+        .frame(width: UIScreen.screenWidth, height: UIScreen.screenWidth)
+        .cornerRadius(25.0)
+        .shadow(color: Color.black, radius: 10, x: 0, y: 0)
+        
     }
     
     func buildImageProduct(imageData: Data?) -> Image {
@@ -65,22 +65,20 @@ struct ProductDescription: View {
         ZStack {
             VStack{
                 HStack() {
-                    ProductInfoSection()
+                    InfoSection()
                     Spacer()
                     PriceSection()
                 }
                 Divider().frame(width: UIScreen.screenWidth-40)
                 AboutTheProduct()
-                AddToCartSection()
+                AddToCart()
             }
-            .frame(width: UIScreen.screenWidth,
-                   height: UIScreen.screenWidth*1.3,
-                   alignment: .top)
+            .frame(width: UIScreen.screenWidth, height: UIScreen.screenWidth*1.3, alignment: .top)
         }
     }
 }
 
-struct ProductInfoSection: View {
+struct InfoSection: View {
     @EnvironmentObject var productDetailsViewModel: ProductDetailsViewModelImplementation
     
     var body: some View {
@@ -142,7 +140,7 @@ struct AboutTheProduct: View {
     }
 }
 
-struct AddToCartSection: View {
+struct AddToCart: View {
     var body: some View {
         Button(action: { print("addToCart tapped") }, label: {
             Text("Add to cart")
