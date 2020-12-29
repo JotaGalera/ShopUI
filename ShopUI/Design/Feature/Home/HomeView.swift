@@ -7,23 +7,47 @@
 import SwiftUI
 
 struct HomeView: View {
+    @StateObject var viewRouter: ViewRouter
+    @StateObject var productListVM = ProductListViewModelImplementation()
+    
     var body: some View{
         GeometryReader { geometry in
             VStack {
                 Spacer()
+                switch viewRouter.currentPage {
+                case .home:
+                    if productListVM.infoLoaded {
+                        ProductListView(productListViewModel: productListVM)
+                    } else {
+                        Text("Cargando")
+                    }
+                case .wishlist:
+                    Text("Wishlist")
+                }
+                Spacer()
                 HStack {
-                    TabBarIcon(width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "homekit", tabName: "Home")
-                    TabBarIcon(width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "heart", tabName: "Wishlist")
+                    TabBarIcon(assignedPage: .home, width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "homekit", tabName: "Home")
+                    TabBarIcon(assignedPage: .wishlist, width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "heart", tabName: "Wishlist")
                 }
                 .frame(width: geometry.size.width, height: geometry.size.height/8)
                 .background(Color("TabBarBackground").shadow(radius: 2))
             }
+            
             .edgesIgnoringSafeArea(.bottom)
+        }
+        .environmentObject(viewRouter)
+        .navigationBarTitle("Product List")
+        .navigationBarHidden(true)
+        .navigationBarBackButtonHidden(true)
+        .onAppear() {
+            productListVM.getProductList()
         }
     }
 }
 
 struct TabBarIcon: View {
+    @EnvironmentObject var viewRouter: ViewRouter
+    let assignedPage: Page
     
     let width, height: CGFloat
     let systemIconName, tabName: String
@@ -40,11 +64,14 @@ struct TabBarIcon: View {
             Spacer()
         }
         .padding(.horizontal, -4)
+        .onTapGesture {
+            viewRouter.currentPage = assignedPage
+        }
     }
 }
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        HomeView(viewRouter: ViewRouter(), productListVM: ProductListViewModelImplementation())
     }
 }

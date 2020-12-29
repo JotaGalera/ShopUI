@@ -17,6 +17,7 @@ class ProductListViewModelImplementation: ProductListViewModel, ObservableObject
     private var getProductListUseCase: GetProductListUseCase
     private var configurator: ProductListConfigurator
     @Published var productList: ProductList
+    @Published var infoLoaded: Bool = false
     var requestDataError: String = ""
     
     
@@ -32,9 +33,11 @@ class ProductListViewModelImplementation: ProductListViewModel, ObservableObject
             DispatchQueue.main.asyncAfter(deadline: .now() + 4, execute: {
                 self.productList = response
                 self.getImageData()
+                self.infoLoaded = true
             })
         }, onFailure: { error in
             self.requestDataError = error
+            self.infoLoaded = true
         })
     }
     

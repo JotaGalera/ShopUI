@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct ProductListView: View {
-    @ObservedObject var productListViewModel = ProductListViewModelImplementation()
-    
-    
+    @ObservedObject var productListViewModel: ProductListViewModelImplementation
+
     var body: some View {
         VStack {
             Text("Product List")

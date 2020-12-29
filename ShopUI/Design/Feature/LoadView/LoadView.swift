@@ -10,8 +10,6 @@ struct UIShopAnimation: View {
     @State private var titlePercentage: CGFloat = .zero
     @State private var subtitlePercentage: CGFloat = .zero
     @State var selectionView: Int? = nil
-    
-    var productListViewModel = ProductListViewModelImplementation()
     @State var isContinueButtonDisabled: Bool = true
     
     var body: some View {
@@ -36,14 +34,13 @@ struct UIShopAnimation: View {
                     .disabled(isContinueButtonDisabled)
             
                 NavigationLink(
-                    destination: ProductListView(productListViewModel: productListViewModel),
+                    destination: HomeView(viewRouter: ViewRouter()),
                     tag: 1,
                     selection: $selectionView ,
                     label: {}
                 )
             }
             .onAppear() {
-                productListViewModel.getProductList()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
                     isContinueButtonDisabled = false
                 }
