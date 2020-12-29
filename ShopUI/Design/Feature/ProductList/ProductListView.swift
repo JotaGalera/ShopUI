@@ -9,25 +9,30 @@ import SwiftUI
 
 struct ProductListView: View {
     @ObservedObject var productListViewModel: ProductListViewModelImplementation
-
+    
     var body: some View {
-        VStack {
-            Text("Product List")
-                .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                .font(Font.system(size: 40, design: .default))
-            Divider()
-            List{
-                ForEach(productListViewModel.productList.getProducts()) { product in
-                    let index = productListViewModel.productList.getProductIndex(product) + 1
-                    ListCell(product: product, positionTapped: index)
+        if productListViewModel.infoLoaded {
+            VStack {
+                Text("Product List")
+                    .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                    .font(Font.system(size: 40, design: .default))
+                Divider()
+                List{
+                    ForEach(productListViewModel.productList.getProducts()) { product in
+                        let index = productListViewModel.productList.getProductIndex(product) + 1
+                        ListCell(product: product, positionTapped: index)
+                    }
                 }
+                .navigationBarTitle("Product List")
+                .navigationBarHidden(true)
+                .navigationBarBackButtonHidden(true)
+                
             }
-            .navigationBarTitle("Product List")
-            .navigationBarHidden(true)
-            .navigationBarBackButtonHidden(true)
-            .onAppear(){
-                productListViewModel.getProductList()
-            }
+        } else {
+            ActivityIndicator()
+                .onAppear(){
+                    productListViewModel.getProductList()
+                }
         }
     }
     

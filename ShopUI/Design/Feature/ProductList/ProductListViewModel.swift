@@ -22,7 +22,7 @@ class ProductListViewModelImplementation: ProductListViewModel, ObservableObject
     
     
     init(configurator: ProductListConfigurator = ProductListConfiguratorImplementation(),
-         productList: ProductList = ProductListImplementation() ){
+         productList: ProductList = ProductListImplementation()){
         self.configurator = configurator
         self.getProductListUseCase = self.configurator.configure()
         self.productList = productList
@@ -30,11 +30,11 @@ class ProductListViewModelImplementation: ProductListViewModel, ObservableObject
         
     func getProductList() {
         getProductListUseCase.execute(onSuccess: { response in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 4, execute: {
+            DispatchQueue.main.async {
                 self.productList = response
                 self.getImageData()
                 self.infoLoaded = true
-            })
+            }
         }, onFailure: { error in
             self.requestDataError = error
             self.infoLoaded = true

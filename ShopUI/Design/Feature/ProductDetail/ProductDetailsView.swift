@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ProductDetailsView: View {
     @StateObject var productDetailsViewModel: ProductDetailsViewModelImplementation
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     let selectedProduct: Int
     
     init(productDetailsViewModel: ProductDetailsViewModelImplementation, selectedProduct: Int) {
@@ -18,18 +17,31 @@ struct ProductDetailsView: View {
     }
     
     var body: some View {
-        VStack {
-            ProductImagesCarousel()
-            ScrollView(.vertical){
-                ProductDescription()
+        if productDetailsViewModel.infoLoaded {
+            VStack {
+                ProductImagesCarousel()
+                ScrollView(.vertical){
+                    ProductDescription()
+                }
             }
+            .environmentObject(productDetailsViewModel)
+            .modifier(ProductDetailsViewStyle())
+            
+        } else {
+            ActivityIndicator()
+                //.modifier(ProductDetailsViewStyle())
+                .onAppear {
+                    productDetailsViewModel.getProductDetails(product_id: selectedProduct)
+                }
         }
-        .onAppear {
-            productDetailsViewModel.getProductDetails(product_id: selectedProduct)
-        }
-        .environmentObject(productDetailsViewModel)
-        .ignoresSafeArea(edges: .bottom)
-        .navigationBarTitleDisplayMode(.inline)
+    }
+}
+
+struct ProductDetailsViewStyle: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .ignoresSafeArea(edges: .bottom)
+            .navigationBarTitleDisplayMode(.inline)
     }
 }
 

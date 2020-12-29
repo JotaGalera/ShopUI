@@ -16,11 +16,7 @@ struct HomeView: View {
                 Spacer()
                 switch viewRouter.currentPage {
                 case .home:
-                    if productListVM.infoLoaded {
-                        ProductListView(productListViewModel: productListVM)
-                    } else {
-                        Text("Cargando")
-                    }
+                    ProductListView(productListViewModel: productListVM)
                 case .wishlist:
                     Text("Wishlist")
                 }
@@ -39,9 +35,6 @@ struct HomeView: View {
         .navigationBarTitle("Product List")
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
-        .onAppear() {
-            productListVM.getProductList()
-        }
     }
 }
 

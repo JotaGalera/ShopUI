@@ -17,13 +17,13 @@ protocol ProductDetailsViewModel: AutoMockable {
     func getProductDiscountPrice() -> String
     func getProductTotalPrice() -> String
     func getProductDetailsImages() -> [Data]?
-    func getNumberOfDetailsImages() -> Int
 }
 
 class ProductDetailsViewModelImplementation: ProductDetailsViewModel, ObservableObject{
     private var getProductDetailsUseCase: GetProductDetailsUseCase
     private var configurator: ProductDetailsConfigurator
     @Published var product: Product?
+    @Published var infoLoaded: Bool = false
     
     init(product: Product? = nil, configurator: ProductDetailsConfigurator = ProductDetailsConfiguratorImplementation()){
         self.product = product
@@ -37,8 +37,11 @@ class ProductDetailsViewModelImplementation: ProductDetailsViewModel, Observable
             DispatchQueue.main.async {
                 self.product = result
                 self.getDetailsImages()
+                self.infoLoaded = true
             }
-        }, onFailure: { error in })
+        }, onFailure: { error in
+            self.infoLoaded = true
+        })
     }
     
     func getDetailsImages() {
@@ -90,10 +93,4 @@ class ProductDetailsViewModelImplementation: ProductDetailsViewModel, Observable
     func getProductDetailsImages() -> [Data]? {
         return product?.detailsImagesData
     }
-    
-    func getNumberOfDetailsImages() -> Int {
-        guard let imagesData = product?.detailsImagesData else { return 0 }
-        return imagesData.count
-    }
-    
 }
