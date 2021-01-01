@@ -25,7 +25,6 @@ struct ActivityIndicator: View {
                     AngularGradient(gradient: .init(colors: [color2,color1]), center: .center ), style: style)
                 .rotationEffect(Angle(degrees: animate ? 360 : 0))
                 .animation(
-                    
                     Animation.easeInOut(duration: 1.5).repeatForever(autoreverses: false)
                 )
                 .frame(width: 50, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)

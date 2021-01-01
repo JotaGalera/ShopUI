@@ -26,7 +26,8 @@ struct HomeView: View {
                     TabBarIcon(assignedPage: .wishlist, width: geometry.size.width/5, height: geometry.size.height/28, systemIconName: "heart", tabName: "Wishlist")
                 }
                 .frame(width: geometry.size.width, height: geometry.size.height/8)
-                .background(Color("TabBarBackground").shadow(radius: 2))
+                .background(Color("TabBarBackground")
+                                .shadow(radius: 2))
             }
             
             .edgesIgnoringSafeArea(.bottom)

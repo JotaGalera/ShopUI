@@ -29,7 +29,7 @@ struct ProductDetailsView: View {
             
         } else {
             ActivityIndicator()
-                //.modifier(ProductDetailsViewStyle())
+                .modifier(ProductDetailsViewStyle())
                 .onAppear {
                     productDetailsViewModel.getProductDetails(product_id: selectedProduct)
                 }
@@ -83,7 +83,7 @@ struct ProductDescription: View {
                 }
                 Divider().frame(width: UIScreen.screenWidth-40)
                 AboutTheProduct()
-                AddToCart()
+                WishlistAndAddToCartGroupButton()
             }
             .frame(width: UIScreen.screenWidth, height: UIScreen.screenWidth*1.3, alignment: .top)
         }
@@ -152,24 +152,47 @@ struct AboutTheProduct: View {
     }
 }
 
+struct WishlistAndAddToCartGroupButton: View {
+    var body: some View {
+        HStack {
+            
+            WishlistButton()
+                .modifier(CustomButtonStyle(color: .white))
+                .frame(width: UIScreen.screenWidth-UIScreen.screenWidth/1.5, height: 80)
+                .offset(x: 25.0)
+            AddToCart()
+                .modifier(CustomButtonStyle(color: .black))
+                .frame(width: UIScreen.screenWidth-UIScreen.screenWidth/2, height: 80)
+                .offset(x: -25.0)
+            
+        }
+    }
+}
+
 struct AddToCart: View {
     var body: some View {
         Button(action: { print("addToCart tapped") }, label: {
             Text("Add to cart")
-                .font(.headline)
+                .font(.subheadline)
                 .foregroundColor(.white)
                 .padding()
-            Spacer()
             Image(systemName: "cart.circle.fill" )
                 .resizable()
                 .foregroundColor(.white)
                 .frame(width: 50, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                 .padding()
         })
-        .frame(width: UIScreen.screenWidth-UIScreen.screenWidth/3, height: 75)
-        .background(Color.black)
-        .cornerRadius(25.0)
-        .shadow(color: Color.black, radius: 2, x: 0, y: 0)
+    }
+}
+
+struct CustomButtonStyle: ViewModifier {
+    var color: Color
+    
+    func body(content: Content) -> some View {
+        content
+            .background(color)
+            .cornerRadius(25.0)
+            .shadow(color: .black, radius: 5, x: 0, y: 0)
     }
 }
 

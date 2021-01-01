@@ -26,7 +26,7 @@ struct ProductListView: View {
                 .navigationBarTitle("Product List")
                 .navigationBarHidden(true)
                 .navigationBarBackButtonHidden(true)
-                
+
             }
         } else {
             ActivityIndicator()
@@ -75,6 +75,6 @@ struct ListCell: View {
 
 struct ProductListView_Previews: PreviewProvider {
     static var previews: some View {
-        ProductListView(productListViewModel: ProductListViewModelImplementation())
+        ProductListView(productListViewModel: ProductListViewModelImplementation(configurator: ProductListConfiguratorImplementation(), infoLoaded: true))
     }
 }
