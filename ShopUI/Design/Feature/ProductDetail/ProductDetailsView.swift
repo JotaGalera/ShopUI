@@ -153,13 +153,17 @@ struct AboutTheProduct: View {
 }
 
 struct WishlistAndAddToCartGroupButton: View {
+    @EnvironmentObject var productDetailsViewModel: ProductDetailsViewModelImplementation
+    
     var body: some View {
         HStack {
-            
             WishlistButton()
                 .modifier(CustomButtonStyle(color: .white))
                 .frame(width: UIScreen.screenWidth-UIScreen.screenWidth/1.5, height: 80)
                 .offset(x: 25.0)
+                .onTapGesture {
+                    self.productDetailsViewModel.addToWishlist()
+                }
             AddToCart()
                 .modifier(CustomButtonStyle(color: .black))
                 .frame(width: UIScreen.screenWidth-UIScreen.screenWidth/2, height: 80)

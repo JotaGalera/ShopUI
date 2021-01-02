@@ -12,6 +12,7 @@ protocol ProductList: AutoMockable {
     func setProducts(product: Product)
     func getImageData()
     func getProductIndex(_ product: Product) -> Int
+    func isProductInTheList(product: Product) -> Bool
 }
 
 class ProductListImplementation: ProductList {
@@ -38,6 +39,10 @@ class ProductListImplementation: ProductList {
             let imageData = try? Data(contentsOf: imageURL)
             products[index].imageData = imageData
         }
+    }
+    
+    func isProductInTheList(product: Product) -> Bool {
+        return products.contains(product)
     }
 }
 

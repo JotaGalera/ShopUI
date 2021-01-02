@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ProductListView: View {
     @ObservedObject var productListViewModel: ProductListViewModelImplementation
+    @ObservedObject var wishlistViewModel: WishlistViewModelImplementation
     
     var body: some View {
         if productListViewModel.infoLoaded {
@@ -22,7 +23,9 @@ struct ProductListView: View {
                         let index = productListViewModel.productList.getProductIndex(product) + 1
                         ListCell(product: product, positionTapped: index)
                     }
+//                    .onDelete( perform: productListViewModel.remove )
                 }
+                
                 .navigationBarTitle("Product List")
                 .navigationBarHidden(true)
                 .navigationBarBackButtonHidden(true)

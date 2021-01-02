@@ -9,6 +9,7 @@ import SwiftUI
 struct HomeView: View {
     @StateObject var viewRouter: ViewRouter
     @StateObject var productListVM = ProductListViewModelImplementation()
+    @StateObject var wishlistVM = WishlistViewModelImplementation()
     
     var body: some View{
         GeometryReader { geometry in

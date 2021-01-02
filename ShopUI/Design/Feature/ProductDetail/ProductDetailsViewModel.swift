@@ -22,12 +22,16 @@ protocol ProductDetailsViewModel: AutoMockable {
 class ProductDetailsViewModelImplementation: ProductDetailsViewModel, ObservableObject{
     private var getProductDetailsUseCase: GetProductDetailsUseCase
     private var configurator: ProductDetailsConfigurator
+    private var wishlistViewModel: WishlistViewModelImplementation
     @Published var product: Product?
     @Published var infoLoaded: Bool = false
     
-    init(product: Product? = nil, configurator: ProductDetailsConfigurator = ProductDetailsConfiguratorImplementation()){
+    init(product: Product? = nil,
+         wishlistVM: WishlistViewModelImplementation = WishlistViewModelImplementation(),
+         configurator: ProductDetailsConfigurator = ProductDetailsConfiguratorImplementation()){
         self.product = product
         self.configurator = configurator
+        self.wishlistViewModel = wishlistVM
         self.getProductDetailsUseCase = self.configurator.configure()
     }
     
@@ -92,5 +96,15 @@ class ProductDetailsViewModelImplementation: ProductDetailsViewModel, Observable
     
     func getProductDetailsImages() -> [Data]? {
         return product?.detailsImagesData
+    }
+    
+    func addToWishlist(){
+        guard let product = self.product else { return }
+        self.wishlistViewModel.addToWishlist(product: product)
+    }
+    
+    func isProductAddedToWishlist() -> Bool {
+        guard let product = self.product else { return false }
+        return wishlistViewModel.isProductInWishlist(product: product)
     }
 }

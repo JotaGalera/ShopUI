@@ -50,4 +50,10 @@ class ProductListViewModelImplementation: ProductListViewModel, ObservableObject
     func getRequestDataError() -> String {
         return requestDataError
     }
+    
+//    func remove(index: IndexSet) {
+//        var productList = self.productList.getProducts()
+//        productList.remove(atOffsets: index)
+//        print("\(productList)")
+//    }
 }
