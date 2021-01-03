@@ -17,9 +17,9 @@ struct HomeView: View {
                 Spacer()
                 switch viewRouter.currentPage {
                 case .home:
-                    ProductListView(productListViewModel: productListVM)
+                    ProductListView(productListViewModel: productListVM, wishlistViewModel: wishlistVM)
                 case .wishlist:
-                    Text("Wishlist")
+                    WishlistView(wishlistModelView: wishlistVM)
                 }
                 Spacer()
                 HStack {
