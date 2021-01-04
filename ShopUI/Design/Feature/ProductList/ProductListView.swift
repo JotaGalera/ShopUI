@@ -23,7 +23,6 @@ struct ProductListView: View {
                         let index = productListViewModel.productList.getProductIndex(product) + 1
                         ListCell(product: product, positionTapped: index)
                     }
-//                    .onDelete( perform: productListViewModel.remove )
                 }
                 .environmentObject(wishlistViewModel)
                 .navigationBarTitle("Product List")

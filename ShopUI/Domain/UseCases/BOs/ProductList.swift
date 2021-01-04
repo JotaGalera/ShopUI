@@ -9,6 +9,7 @@ import Foundation
 
 protocol ProductList: AutoMockable {
     func getProducts() -> [Product]
+    func getProduct(index: IndexSet) -> Product?
     func setProducts(product: Product)
     func removeProduct(product: Product)
     func getImageData()
@@ -16,7 +17,7 @@ protocol ProductList: AutoMockable {
     func isProductInTheList(product: Product) -> Bool
 }
 
-class ProductListImplementation: ProductList {
+class ProductListImplementation: ProductList, ObservableObject {
     private var products: [Product] = []
     
     func setProducts(product: Product) {
@@ -31,6 +32,11 @@ class ProductListImplementation: ProductList {
     
     func getProducts() -> [Product] {
         return products
+    }
+    
+    func getProduct(index: IndexSet) -> Product? {
+        guard let index = index.first else { return nil }
+        return products[index]
     }
     
     func getProductIndex(_ product: Product) -> Int {

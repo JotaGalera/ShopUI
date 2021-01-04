@@ -16,9 +16,10 @@ struct WishlistView: View {
     
     var body: some View {
         List {
-            ForEach(wishlistModelView.wishlist.getProducts()) { product in
+            ForEach(wishlistModelView.list) { product in
                 Text("\(product.name)")
             }
+            .onDelete( perform: wishlistModelView.remove)
         }
     }
 }
