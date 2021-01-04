@@ -25,7 +25,7 @@ struct ProductListView: View {
                     }
 //                    .onDelete( perform: productListViewModel.remove )
                 }
-                
+                .environmentObject(wishlistViewModel)
                 .navigationBarTitle("Product List")
                 .navigationBarHidden(true)
                 .navigationBarBackButtonHidden(true)
@@ -38,16 +38,16 @@ struct ProductListView: View {
                 }
         }
     }
-    
 }
 
 struct ListCell: View {
+    @EnvironmentObject var wishlistViewModel: WishlistViewModelImplementation
+    @State var isPresentedFullScreen = true
     var product: Product
     var positionTapped: Int
-    @State var isPresentedFullScreen = true
     
     var body: some View {
-        NavigationLink(destination: ProductDetailsView(productDetailsViewModel: ProductDetailsViewModelImplementation(), selectedProduct: positionTapped)){
+        NavigationLink( destination: ProductDetailsView(productDetailsViewModel: ProductDetailsViewModelImplementation(wishlistVM: wishlistViewModel), selectedProduct: positionTapped)){
             HStack{
                 buildImageProduct(imageData: product.imageData)
                     .resizable()
