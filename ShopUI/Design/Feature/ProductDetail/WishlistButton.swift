@@ -8,7 +8,44 @@
 import SwiftUI
 
 struct WishlistButton: View {
-    @State var isWishlistAdded = false
+    @EnvironmentObject var productDetailsVM: ProductDetailsViewModelImplementation
+    @State var isProductAddedToWishlist: Bool = false
+        
+    var body: some View {
+        Button(action: {
+            if !isProductAddedToWishlist {
+                productDetailsVM.addToWishlist()
+            } else {
+                productDetailsVM.removeToWishlist()
+            }
+            isProductAddedToWishlist.toggle()
+        }, label: {
+            HStack{
+                ZStack {
+                    HeartFilledEffect()
+                        .opacity(isProductAddedToWishlist ? 0 : 1)
+                        .scaleEffect( isProductAddedToWishlist ? 1.0 : 0.0000001)
+                        .animation(Animation.easeInOut(duration: 0.8))
+                        
+                    HeartFilledEffect()
+                        .opacity(1)
+                        .scaleEffect( isProductAddedToWishlist ? 0.5 : 0.0000001)
+                        .animation(Animation.easeInOut(duration: 0.8))
+                        
+                    HeartPath()
+                        .scale(0.5)
+                        .stroke(style: StrokeStyle(lineWidth: 3.0))
+                }
+            }
+        })
+        .onAppear() {
+            isProductAddedToWishlist = productDetailsVM.isProductAddedToWishlist()
+        }
+    }
+}
+
+struct HeartAnimation: View {
+    @State var isWishlistAdded: Bool = false
     
     var body: some View {
         HStack{
@@ -17,24 +54,24 @@ struct WishlistButton: View {
                     .opacity(isWishlistAdded ? 0 : 1)
                     .scaleEffect( isWishlistAdded ? 1.0 : 0.0000001)
                     .animation(Animation.easeInOut(duration: 0.8))
-                    .onTapGesture {
-                        isWishlistAdded.toggle()
-                    }
+                    
                 HeartFilledEffect()
                     .opacity(1)
                     .scaleEffect( isWishlistAdded ? 0.5 : 0.0000001)
                     .animation(Animation.easeInOut(duration: 0.8))
-                    .onTapGesture {
-                        isWishlistAdded.toggle()
-                    }
+                    
                 HeartPath()
                     .scale(0.5)
                     .stroke(style: StrokeStyle(lineWidth: 3.0))
-                .onTapGesture {
-                    isWishlistAdded.toggle()
-                }
             }
         }
+        .onTapGesture {
+            isWishlistAdded.toggle()
+        }
+    }
+    
+    public func animationOn() {
+        isWishlistAdded.toggle()
     }
 }
 
@@ -63,7 +100,7 @@ struct HeartFilledEffect: View {
 
 struct WishlistButton_Previews: PreviewProvider {
     static var previews: some View {
-        WishlistButton()
+        HeartAnimation()
             .frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
     }
 }

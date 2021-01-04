@@ -8,13 +8,23 @@
 import SwiftUI
 
 struct WishlistView: View {
+    @StateObject var wishlistModelView: WishlistViewModelImplementation
+    
+    init(wishlistModelView: WishlistViewModelImplementation){
+        _wishlistModelView = StateObject(wrappedValue: wishlistModelView)
+    }
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        List {
+            ForEach(wishlistModelView.wishlist.getProducts()) { product in
+                Text("\(product.name)")
+            }
+        }
     }
 }
 
 struct WishlistView_Previews: PreviewProvider {
     static var previews: some View {
-        WishlistView()
+        WishlistView(wishlistModelView: WishlistViewModelImplementation())
     }
 }

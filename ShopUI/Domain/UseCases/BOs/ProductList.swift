@@ -10,6 +10,7 @@ import Foundation
 protocol ProductList: AutoMockable {
     func getProducts() -> [Product]
     func setProducts(product: Product)
+    func removeProduct(product: Product)
     func getImageData()
     func getProductIndex(_ product: Product) -> Int
     func isProductInTheList(product: Product) -> Bool
@@ -20,6 +21,12 @@ class ProductListImplementation: ProductList {
     
     func setProducts(product: Product) {
         self.products.append(product)
+    }
+    
+    func removeProduct(product: Product) {
+        products.removeAll(where: {
+            $0 == product
+        })
     }
     
     func getProducts() -> [Product] {

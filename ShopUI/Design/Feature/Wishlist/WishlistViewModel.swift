@@ -18,6 +18,10 @@ class WishlistViewModelImplementation: WishlistViewModel, ObservableObject {
         wishlist.setProducts(product: product)
     }
     
+    func removeToWishlist(product: Product) {
+        wishlist.removeProduct(product: product)
+    }
+    
     func isProductInWishlist(product: Product) -> Bool{
         return wishlist.isProductInTheList(product: product)
     }

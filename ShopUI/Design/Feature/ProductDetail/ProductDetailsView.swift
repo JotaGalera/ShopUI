@@ -81,9 +81,10 @@ struct ProductDescription: View {
                     Spacer()
                     PriceSection()
                 }
-                Divider().frame(width: UIScreen.screenWidth-40)
-                AboutTheProduct()
                 WishlistAndAddToCartGroupButton()
+                    .padding()
+                AboutTheProduct()
+                
             }
             .frame(width: UIScreen.screenWidth, height: UIScreen.screenWidth*1.3, alignment: .top)
         }
@@ -147,25 +148,25 @@ struct AboutTheProduct: View {
                 Text("PRODUCT INFO")
                 .padding()
                 .font(.subheadline)
-                .foregroundColor(Color.black) }
+                .foregroundColor(Color.black)
+                .onTapGesture {
+                    withAnimation { expanded.toggle() }
+                }
+            }
         ).padding()
     }
 }
 
 struct WishlistAndAddToCartGroupButton: View {
-    @EnvironmentObject var productDetailsViewModel: ProductDetailsViewModelImplementation
     
     var body: some View {
         HStack {
             WishlistButton()
-                .modifier(CustomButtonStyle(color: .white))
+                .modifier(CustomButtonStyle(background: .white, foreground: .black))
                 .frame(width: UIScreen.screenWidth-UIScreen.screenWidth/1.5, height: 80)
                 .offset(x: 25.0)
-                .onTapGesture {
-                    self.productDetailsViewModel.addToWishlist()
-                }
-            AddToCart()
-                .modifier(CustomButtonStyle(color: .black))
+            AddToCartButton()
+                .modifier(CustomButtonStyle(background: .black, foreground: .white))
                 .frame(width: UIScreen.screenWidth-UIScreen.screenWidth/2, height: 80)
                 .offset(x: -25.0)
             
@@ -173,7 +174,7 @@ struct WishlistAndAddToCartGroupButton: View {
     }
 }
 
-struct AddToCart: View {
+struct AddToCartButton: View {
     var body: some View {
         Button(action: { print("addToCart tapped") }, label: {
             Text("Add to cart")
@@ -190,11 +191,13 @@ struct AddToCart: View {
 }
 
 struct CustomButtonStyle: ViewModifier {
-    var color: Color
+    var background: Color
+    var foreground: Color
     
     func body(content: Content) -> some View {
         content
-            .background(color)
+            .foregroundColor(foreground)
+            .background(background)
             .cornerRadius(25.0)
             .shadow(color: .black, radius: 5, x: 0, y: 0)
     }

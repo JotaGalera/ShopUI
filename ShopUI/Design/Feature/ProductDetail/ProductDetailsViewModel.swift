@@ -98,9 +98,14 @@ class ProductDetailsViewModelImplementation: ProductDetailsViewModel, Observable
         return product?.detailsImagesData
     }
     
-    func addToWishlist(){
+    func addToWishlist() {
         guard let product = self.product else { return }
         self.wishlistViewModel.addToWishlist(product: product)
+    }
+    
+    func removeToWishlist() {
+        guard let product = self.product else { return }
+        self.wishlistViewModel.removeToWishlist(product: product)
     }
     
     func isProductAddedToWishlist() -> Bool {
