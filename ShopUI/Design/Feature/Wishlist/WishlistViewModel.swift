@@ -10,27 +10,32 @@ import Foundation
 protocol WishlistViewModel: AutoMockable {
     func addToWishlist(product: Product)
     func removeToWishlist(product: Product)
+    func remove(index: IndexSet)
     func isProductInWishlist(product: Product) -> Bool
 }
 
 class WishlistViewModelImplementation: WishlistViewModel, ObservableObject {
-    @Published var list: [Product] = []
+    var wishList = WishListImplementation()
     
     func addToWishlist(product: Product) {
-        list.append(product)
+        wishList.setProducts(product: product)
     }
     
     func removeToWishlist(product: Product) {
-        list.removeAll(where: {
-            $0 == product
-        })
-    }
-    
-    func isProductInWishlist(product: Product) -> Bool{
-        return list.contains(product)
+        wishList.removeProduct(product: product)
+        updateView()
     }
     
     func remove(index: IndexSet) {
-        list.remove(atOffsets: index)
+        wishList.removeProduct(index: index)
+        updateView()
+    }
+    
+    func isProductInWishlist(product: Product) -> Bool{
+        return wishList.isProductInTheList(product: product)
+    }
+    
+    private func updateView(){
+        self.objectWillChange.send()
     }
 }
