@@ -17,7 +17,7 @@ class ProductListViewTests: XCTestCase {
         let configuratorMock = ProductListConfiguratorMock()
         configuratorMock.configureReturnValue = getProductListUseCaseMock
         let productListMock = ProductListImplementation()
-        productListMock.setProducts(product: productMock)
+        productListMock.addProduct(product: productMock)
         let productListViewModelMock = ProductListViewModelImplementation(configurator: configuratorMock, productList: productListMock)
         
         let productListView = NavigationView(content: {

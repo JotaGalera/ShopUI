@@ -22,8 +22,8 @@ class ProductListTests: XCTestCase {
         let productListA = ProductListImplementation()
         let productListB = ProductListImplementation()
         
-        productListA.setProducts(product: productMock)
-        productListB.setProducts(product: productMock)
+        productListA.addProduct(product: productMock)
+        productListB.addProduct(product: productMock)
         
         XCTAssertEqual(productListA, productListB)
         XCTAssertEqual(productListA.getProducts(), productListB.getProducts())
@@ -35,8 +35,8 @@ class ProductListTests: XCTestCase {
         let productListA = ProductListImplementation()
         let productListB = ProductListImplementation()
         
-        productListA.setProducts(product: productMock)
-        productListB.setProducts(product: productMock2)
+        productListA.addProduct(product: productMock)
+        productListB.addProduct(product: productMock2)
         
         XCTAssertNotEqual(productListA, productListB)
         XCTAssertNotEqual(productListA.getProducts(), productListB.getProducts())
@@ -47,9 +47,9 @@ class ProductListTests: XCTestCase {
         let productListA = ProductListImplementation()
         let productListB = ProductListImplementation()
         
-        productListA.setProducts(product: productMock)
-        productListB.setProducts(product: productMock)
-        productListB.setProducts(product: productMock)
+        productListA.addProduct(product: productMock)
+        productListB.addProduct(product: productMock)
+        productListB.addProduct(product: productMock)
         
         XCTAssertNotEqual(productListA, productListB)
         XCTAssertNotEqual(productListA.getProducts(), productListB.getProducts())

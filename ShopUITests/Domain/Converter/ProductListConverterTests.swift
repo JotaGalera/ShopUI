@@ -23,7 +23,7 @@ class ProductListConverterTests: XCTestCase {
         let productListDataMock = [["name":"nameMock","brand":"brandMock","price":1,"currency":"currencyMock","image":"imageMock"]]
         let productMock = Product(name: "nameMock", color: "", brand: "brandMock", price: 1, originalPrice: 0.0, discount: 0.0, totalPrice: 0.0, currency: "currencyMock", image: "imageMock", detailsImages: [""])
         let productListMock = ProductListImplementation()
-        productListMock.setProducts(product: productMock)
+        productListMock.addProduct(product: productMock)
         productConverterMock.convertDataReturnValue = productMock
         
         let _ = sut.convert(productListData: productListDataMock)
@@ -35,7 +35,7 @@ class ProductListConverterTests: XCTestCase {
         let productListDataMock = [["name":"nameMock","brand":"brandMock","price":1,"currency":"currencyMock","image":"imageMock"]]
         let productMock = Product(name: "nameMock", color: "", brand: "brandMock", price: 1, originalPrice: 0.0, discount: 0.0, totalPrice: 0.0, currency: "currencyMock", image: "imageMock", detailsImages: [""])
         let productListMock = ProductListImplementation()
-        productListMock.setProducts(product: productMock)
+        productListMock.addProduct(product: productMock)
         productConverterMock.convertDataReturnValue = productMock
         
         let productListConverted = sut.convert(productListData: productListDataMock)

@@ -15,10 +15,10 @@ protocol WishlistViewModel: AutoMockable {
 }
 
 class WishlistViewModelImplementation: WishlistViewModel, ObservableObject {
-    var wishList = WishListImplementation()
+    @Published var wishList = ProductListImplementation()
     
     func addToWishlist(product: Product) {
-        wishList.setProducts(product: product)
+        wishList.addProduct(product: product)
     }
     
     func removeToWishlist(product: Product) {

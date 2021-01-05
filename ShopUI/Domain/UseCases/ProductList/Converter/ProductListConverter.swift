@@ -23,7 +23,7 @@ class ProductListConverterImplementation: ProductListConverter {
         
         for index in 0..<productListData.count{
             let product = productConverter.convert(data: productListData[index])
-            productList.setProducts(product: product)
+            productList.addProduct(product: product)
         }
         
         return productList

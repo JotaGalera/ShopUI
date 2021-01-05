@@ -10,17 +10,18 @@ import Foundation
 protocol ProductList: AutoMockable {
     func getProducts() -> [Product]
     func getProduct(index: IndexSet) -> Product?
-    func setProducts(product: Product)
-    func removeProduct(product: Product)
     func getImageData()
     func getProductIndex(_ product: Product) -> Int
+    func addProduct(product: Product)
+    func removeProduct(product: Product)
+    func removeProduct(index: IndexSet)
     func isProductInTheList(product: Product) -> Bool
 }
 
-class ProductListImplementation: ProductList, ObservableObject {
+class ProductListImplementation: ProductList {
     private var products: [Product] = []
     
-    func setProducts(product: Product) {
+    func addProduct(product: Product) {
         self.products.append(product)
     }
     
@@ -28,6 +29,10 @@ class ProductListImplementation: ProductList, ObservableObject {
         products.removeAll(where: {
             $0 == product
         })
+    }
+    
+    func removeProduct(index: IndexSet) {
+        products.remove(atOffsets: index)
     }
     
     func getProducts() -> [Product] {
