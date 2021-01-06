@@ -19,7 +19,7 @@ struct HomeView: View {
                 case .home:
                     ProductListView(productListViewModel: productListVM, wishlistViewModel: wishlistVM)
                 case .wishlist:
-                    WishlistView(wishlistModelView: wishlistVM)
+                    WishlistView(wishlistViewModel: wishlistVM)
                 }
                 Spacer()
                 HStack {

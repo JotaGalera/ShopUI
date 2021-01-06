@@ -41,7 +41,6 @@ struct ProductListView: View {
 
 struct ListCell: View {
     @EnvironmentObject var wishlistViewModel: WishlistViewModelImplementation
-    @State var isPresentedFullScreen = true
     var product: Product
     var positionTapped: Int
     
