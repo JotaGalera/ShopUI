@@ -463,11 +463,11 @@
 		897BA5322551F5CC00D87FE0 /* Feature */ = {
 			isa = PBXGroup;
 			children = (
-				89573618259F99CA0060CAF2 /* Wishlist */,
 				89FB78122576F8C000BA44B3 /* LoadView */,
 				89627B01259B5FE30005D4E5 /* Home */,
 				8916F2452575625D00216AAF /* ProductList */,
 				89F0687F257EE0920029BE5C /* ProductDetail */,
+				89573618259F99CA0060CAF2 /* Wishlist */,
 			);
 			path = Feature;
 			sourceTree = "<group>";
