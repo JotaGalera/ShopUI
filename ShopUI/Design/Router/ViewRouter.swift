@@ -16,21 +16,3 @@ enum Page {
     case wishlist
 }
 
-
-struct MainView: View {
-    @StateObject var viewRouter: ViewRouter
-    @StateObject var productListVM = ProductListViewModelImplementation()
-    
-    var body: some View {
-        Text("ya estoy aqui")
-        
-            
-    }
-    
-}
-
-struct MainView_Preview: PreviewProvider {
-    static var previews: some View {
-        MainView(viewRouter: ViewRouter())
-    }
-}
